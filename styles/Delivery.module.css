@@ -1,0 +1,97 @@
+.container{
+  padding: 2rem;
+  display: flex;
+  justify-content: space-around;
+}
+.left{
+  flex:2;
+}
+.title{
+  color:rgba(0,0,0,0.5);
+  text-align: center;
+  font-size:1rem;
+}
+.form{
+  width:100%;
+  padding:1rem;
+}
+.formGroup{
+  width:100%;
+
+  display: flex;
+  flex-flow:column wrap;
+  margin:1rem 0;
+}
+.formGroup:first-child{
+  margin:0.3rem 0;
+}
+.formGroup:last-child{
+  display:flex;
+  flex-flow:row wrap;
+  justify-content: flex-end;
+  align-items:center;
+}
+.submitBtn{
+  padding:0.6rem 2rem;
+  border-radius:0.6rem;
+  outline:none;
+  border:1px solid var(--main-color);
+  font-size:0.8rem;
+  background: var(--main-color);
+  color:white;
+  cursor: pointer;
+  transition: all 0.8s ease;
+}
+.submitBtn:hover{
+  color: var(--main-color);
+  background:white;
+}
+.formControl{
+  height:2rem;
+  border:0;
+  border-bottom:1px solid gray;
+  outline:none;
+  max-width:90%;
+}
+
+.right{
+  flex:1;
+  display:flex;
+  padding:1rem;
+  flex-flow: column wrap;
+  border-radius:0.7rem;
+}
+.child{
+  margin:1rem 0;
+}
+.labelContainer,.price{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.labelContainer:last-child{
+  border-top:1px solid gray;
+  padding-top:1rem;
+
+}
+.labelContainer{
+  margin:0.5rem 0;
+}
+
+@media screen and (max-width:480px){
+  .container{
+    flex-direction: column;
+    padding:3rem 0.5rem ;
+  }
+  .left,.right{
+    width:100%;
+  }
+  .labelContainer{
+    display:flex;
+    flex-flow: column wrap;
+  }
+  .label{
+    margin-bottom:1rem;
+  }
+
+}

@@ -1,0 +1,237 @@
+.container{
+    padding:4rem;
+    display: flex;
+}
+.left{
+  flex:2;
+}
+.right{
+  flex:1;
+}
+.wrapper{
+  color:white;
+  width:90%;
+  background: #333;
+  margin:0 1rem;
+  padding:1rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.8rem;
+
+}
+.totalText{
+  display: flex;
+  margin:0.5rem;
+}
+.totalText div{
+  display:flex;
+  align-items: center;
+  justify-content:flex-end;
+  flex:2;
+  text-align:right;
+}
+.checkbtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.title{
+  text-align: center;
+}
+.checkbtn button{
+  background: white;
+  padding:0.5rem 2rem;
+  outline:none;
+  border:0;
+  color:teal;
+  font-weight:bold;
+  margin-top:20px;
+  cursor:not-allowed;
+  border-radius:1rem;
+
+}
+
+.imgContainer{
+  position: relative;
+
+}
+.container{
+  padding: 1rem;
+  display: flex;
+  justify-content: space-around;
+
+
+
+}
+.left{
+  flex:2;
+}
+
+.row:last-child{
+  display: flex;
+  justify-content: space-between;
+  width:85%;
+  margin-top:1rem;
+}
+.status{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.done{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.inProgress{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: inProgress 1s ease infinite alternate;
+}
+.unDone{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.5;
+}
+.unDone .checkedIcon,.inProgress .checkedIcon{
+  display: none;
+}
+@keyframes inProgress {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+
+}
+
+.right{
+  flex:1;
+  border-radius:0.4rem;
+}
+
+
+.price{
+  display: flex;
+}
+.table{
+  width:100%;
+  overflow: auto;
+  border-spacing: 1rem;
+}
+.name{
+  font-weight:700;
+  color:var(--main-color);
+  font-size:1rem;
+}
+.total{
+  display: flex;
+  align-items: center;
+  font-weight:600;
+  font-size: 1.2rem;
+
+}
+
+
+
+.table td{
+  text-align: center;
+  padding:0.4rem;
+}
+.imgContainer{
+  width:3rem;
+  height:3rem;
+  position: relative;
+}
+.editBtn,.delBtn{
+  cursor: pointer;
+}
+.wrapper{
+  color:white;
+  width:90%;
+  background: #333;
+  margin:0 1rem;
+  padding:1rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.8rem;
+
+}
+.totalText div{
+  display:flex;
+  align-items: center;
+  justify-content:flex-end;
+  flex:2;
+  text-align:right;
+}
+.totalText{
+  display: flex;
+  margin:0.5rem;
+
+}
+.totalText:last-child{
+  border-top:1px solid white;
+  padding:0.4rem 0;
+
+}
+.title{
+  text-align: center;
+}
+.checkbtn{
+  display:flex;
+  justify-content: center;
+  align-items:center;
+  margin-top:1rem;
+}
+
+@media screen and (max-width:480px){
+  .container{
+    flex-direction: column;
+    padding:0.3rem;
+    margin:2rem 0;
+  }
+  .wrapper{
+    width:100%;
+    margin:0;
+    padding:0.5rem;
+  }
+  .trTitle{
+    display: none;
+  }
+  .tr{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .row:last-child{
+    flex-flow: column wrap;
+    margin:2rem 0 2rem;
+  }
+  .row:last-child >div{
+      margin:1rem 0;
+  }
+  .id::before{
+    content:"Order Id : ";
+    font-weight: bold;
+  }
+  .name::before{
+    content:"Customer Name : ";
+    font-weight: bold;
+    color:black;
+  }
+  .address::before{
+    content:"Address : ";
+    font-weight: bold;
+  }
+  .total::before{
+    content:"Total Amount : ";
+    
+
+  }
+}

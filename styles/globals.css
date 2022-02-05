@@ -1,16 +1,82 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,400;1,100;1,300&family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,800;1,200;1,300&family=Pacifico&family=Poppins:ital,wght@0,100;0,200;1,100;1,200&family=Raleway:ital,wght@0,100;0,200;0,300;0,500;1,100&family=Roboto:ital,wght@0,100;0,300;1,400;1,500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.arrow{
+    @apply hidden md:block absolute w-8 h-12 pt-3 pr-2 bottom-[40%] my-auto mx-5 z-[100] bg-gray-600 rounded-full cursor-pointer shadow-lg shadow-indigo-500/40
+}
+.navbar{
+  @apply h-[12vh] h-full w-full flex  px-1 md:px-[3rem] text-black bg-[#d1411e] items-center justify-between sticky top-0 z-[999] md:p-[0.4rem]
+}
+.menubar{
+  @apply mx-2 cursor-pointer
+}
+.pizzaCart{
+  @apply w-[100%] h-full p-2 flex justify-center items-center border border-gray-600 shadow-lg flex-col flex-wrap rounded-md cursor-pointer
+}
+.priceBtn{
+    @apply px-3 py-2 flex justify-evenly w-[6rem] outline-none border border-[#d1411e] shadow-md font-bold cursor-pointer  transition-all ease-in duration-100 hover:bg-[#d1411e] hover:text-white
+}
+.btnGoogle{
+  @apply flex justify-around items-center px-4 py-2 mb-3 cursor-pointer outline-none rounded-md border border-gray-600 w-2/4 mx-auto
+}
+.formDiv{
+    @apply flex flex-col flex-wrap mx-1
+}
+.btn{
+  @apply border-0 px-5 py-2 text-center rounded-md outline-none cursor-pointer border border-gray-700
+}
+.field{
+  @apply border-0 outline-none border-b border-gray-600 p-2
+}
+.guestBtn{
+  @apply bg-white text-[#d1411e] border border-[#d1411e] rounded-lg px-3 py-1 mt-2 ml-2 hover:bg-[#d1411e] hover:text-white transition-all ease-in duration-100 outline-none
+}
+.formContainer{
+  @apply mx-4 lg:mx-6 w-full flex flex-col md:flex-row
+}
+.formParentsGroup{
+  @apply flex flex-col md:flex-row flex-wrap
+}
+.childGroup{
+  @apply w-full flex-1 flex flex-col flex-wrap relative my-3
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.firstBtn{
+  @apply absolute right-[25%] border py-2 px-4 border-[#d1411e] cursor-pointer text-white rounded-md bg-[#d1411e] transition-all duration-100 ease-in outline-none sm:my-3 sm:left-[10%] md:left-0 md:my-0 sm:w-12 md:w-[4rem] hover:text-[#d1411e] hover:bg-white
 }
 
-* {
-  box-sizing: border-box;
+.formGroup{
+  @apply my-4 flex flex-col flex-wrap
+}
+.formControl{
+  @apply w-3/4 border-0 border-b border-gray-600 outline-none mt-3
+}
+.sizes{
+  @apply flex flex-row flex-wrap my-3
+}
+.submitBtn{
+  @apply py-2 px-4 outline-none border border-gray-700 text-base text-white cursor-pointer transition-all duration-100 ease-in hover:bg-[#d1411e] hover:text-white
+}
+.half{
+  @apply w-[2rem] h-[2rem]
+}
+.small{
+  @apply w-[2rem] h-[2rem]
+}
+.large{
+  @apply w-[3.0rem] h-[3.0rem]
+}
+
+@keyframes wiggle {
+  from{
+    opacity: 1
+  }
+  to{
+    opacity: 0
+  }
+
+
 }
