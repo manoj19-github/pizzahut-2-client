@@ -5,7 +5,7 @@ import {useSelector,useDispatch} from "react-redux"
 import {useEffect} from "react"
 import {getAuthData} from "../redux/actions/auth"
 import {clientProductTypes} from "../redux/types"
-export default function Home({data}) {
+export default function Home({data,slides}) {
   console.log(data)
 
   const authUser=useSelector(state=>state.authReducer.authUser)
@@ -21,7 +21,7 @@ export default function Home({data}) {
   return (
     <div>
       <HeadTag headLine="PizzaHut"/>
-      <Featured/>
+      <Featured slidesData={slides}/>
       <PizzaList/>
     </div>
   )
@@ -29,15 +29,20 @@ export default function Home({data}) {
 
 export async function getStaticProps(){
   try{
-    const aproducts=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/products`,{
+    const config={
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json"
-              }})
+              }
+          }
+    const aproducts=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/products`,config)
+    const rawData=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/slides`,config)
     const products=await aproducts.json()
+    const slidesData=await rawData.json()
     return{
       props:{
-        data:products
+        data:products,
+        slides:slidesData.slides
       },
       revalidate:100
     }

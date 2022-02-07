@@ -1,13 +1,22 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import {BiRupee} from "react-icons/bi"
 import {FaEdit} from "react-icons/fa"
 import {RiDeleteBack2Fill} from "react-icons/ri"
 import Image from "next/image"
 import Link from "next/link"
 import moment from "moment-timezone"
+import {useRouter} from "next/router"
 
 const Order = ({orderData}) => {
+  const Router=useRouter()
   console.log("orderData",orderData)
+  useEffect(()=>{
+    if(!orderData){
+      Router.push("/auth/login")
+    }
+
+  },[])
+
 
 
     return (

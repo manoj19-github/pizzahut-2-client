@@ -62,17 +62,16 @@ const Auth = () => {
       }
     }
     else if(params.length==2){
-      dispatch(adminLoginAction(values.email,values.password))
+      dispatch(adminLoginAction(values.email,values.password,router))
       console.log(authUser)
-      if(authUser.isAdmin){
-        router.push("/admin")
-      }else{
-        toast.error("email or password is not valid",{position:toast.POSITION.TOP_RIGHT})
-
+        if(!authUser.isAdmin){
+          toast.error("email or password is not valid",{position:toast.POSITION.TOP_RIGHT})
+        }
       }
+      onSubmitProps.resetForm()
     }
-    onSubmitProps.resetForm()
-  }
+
+
 
   const signUpthrowGoogle=()=>{
     window.open(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/login/google`,"_self")

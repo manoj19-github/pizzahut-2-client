@@ -7,16 +7,25 @@ import {useDispatch,useSelector} from "react-redux"
 import Image from "next/image"
 import {AiOutlineDelete} from "react-icons/ai"
 import {FaEdit} from "react-icons/fa"
-import {adminOrderTypes} from "../../redux/types"
+import {adminOrderTypes,notifyTypes} from "../../redux/types"
+import io from "socket.io-client"
+import {toast} from "react-toastify"
+import{orderStatusChange} from "../../redux/actions/admin/productAction"
+import "react-toastify/dist/ReactToastify.css"
+toast.configure()
+
+const SERVER_URL=`${process.env.NEXT_PUBLIC_SERVER_URL}`
+var socket
 const Order = ({orders}) => {
+  const isOrderPage=useSelector(state=>state.siteReducer.tabIndex)
   const dispatch=useDispatch()
   useEffect(()=>{
       dispatch({type:adminOrderTypes.SET_ORDER_DATA,payload:orders})
   },[dispatch])
   const isAdminSidebarOpen=useSelector(state=>state.siteReducer.isAdminSidebarOpen)
   const orderData=useSelector(state=>state.adminOrderReducer.orderData)
-  const handleChange=()=>{
-
+  const handleChange=(event,productId)=>{
+    dispatch(orderStatusChange(productId,event.target.value))
   }
   const toggleAdminSidebar=()=>{
     if(isAdminSidebarOpen){
@@ -53,7 +62,9 @@ const Order = ({orders}) => {
                   orderData && orderData.map((order,index)=>(
                     <tr className="flex text-[15px] justify-between   w-[100%] border border-gray-600 items-center text-blue-700" key={index}>
                       <td  className="flex-1 text-center text-gray-500 ">
+                        <span className="mr-2 text-[12px]">{order._id}</span><br/>
                         {
+
                           order.product?.map((item,index)=>(
                             <span key={index}>{item.product.name} ,</span>
                           ))
@@ -95,12 +106,12 @@ const Order = ({orders}) => {
                       </td>
                       <td  className=" flex-1 flex justify-center text-gray-500 ">
                         <form>
-                          <select onChange={handleChange}>
+                          <select onChange={(e)=>handleChange(e,order._id)} value={order.status}>
                             <option value="order_placed">Order Placed</option>
-                            <option value="prepared">Prepared</option>
-                            <option value="out_for_delivery">Out for Delivery</option>
-                            <option value="delivered">Delivered</option>
-                            <option value="rejected">Rejected</option>
+                            <option  value="order_prepared">Prepared</option>
+                          <option  value="order_out_for_delivery">Out for Delivery</option>
+                        <option  value="order_delivered">Delivered</option>
+                      <option value="order_rejected">Rejected</option>
 
                           </select>
                         </form>

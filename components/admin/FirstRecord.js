@@ -39,53 +39,53 @@ const FirstRecord = ({data,dashboardData}) => {
         <p className="text-teal-700 mt-2 text-sm">Buisness in Last Month</p>
         <div className="flex flex-col lg:flex-row items-center justify-between">
           <div className="mt-2 mx-auto  w-[90%] lg:w-[50%] lg:mx-0 grid grid-flow-row auto-rows-max grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-2 ">
-            <div className="flex flex-col py-4 px-4 border border-gray-400 rounded-md">
-              <div className="flex flex-row items-center">
+            <div className="flex flex-col py-4 px-4  text-white rounded-md bg-blue-500 ">
+              <div className="flex flex-row items-center ">
                 <div className="ml-2">
-                  <BsHandbag size={25} color="gray" className="cursor-pointer"/>
+                  <BsHandbag size={25} color="white" className="cursor-pointer"/>
                 </div>
-                <div className="ml-4   text-lg flex items-center ">
-                  <BiRupee size={32} color="gray"/>
-                  <CountUp end={dashboardData.orderTotal} decimals={2} className="text-xl text-gray-600" duration={5} />
+                <div className="ml-4 text-white   text-lg flex items-center ">
+                  <BiRupee size={32} color="white"/>
+                  <CountUp end={dashboardData.orderTotal} decimals={2} className="text-xl text-white" duration={5} />
                 </div>
               </div>
-              <p className="mt-2 text-sm text-gray-700 text-center">Total Orders</p>
+              <p className="mt-2 text-sm  text-center">Total Orders</p>
             </div>
-            <div className="flex flex-col py-4 px-4 border border-gray-400 rounded-md">
+            <div className="flex flex-col py-4 px-4  bg-[#87CE1D] rounded-md">
               <div className="flex flex-row items-center">
                 <div className="ml-2">
-                  <BsCartCheck size={25} color="gray"/>
+                  <BsCartCheck size={25} color="white"/>
                 </div>
                 <div className="ml-4 text-lg flex items-center ">
-                  <BiRupee size={32} color="gray"/>
-                  <CountUp end={dashboardData.cartTotal} decimals={2} className="text-xl text-gray-600" duration={5} />
+                  <BiRupee size={32} color="white"/>
+                  <CountUp end={dashboardData.cartTotal} decimals={2} className="text-xl text-white" duration={5} />
                 </div>
               </div>
-              <p className="mt-2 text-sm text-gray-700 text-center">Total Cart</p>
+              <p className="mt-2 text-sm text-white text-center">Total Cart</p>
             </div>
-            <div className="flex flex-col py-4 px-4 border border-gray-400 rounded-md">
+            <div className="flex flex-col py-4 px-4 bg-[#E74C3C] rounded-md">
               <div className="flex flex-row items-center">
                 <div className="ml-2">
-                  <GiReceiveMoney size={25} color="gray"/>
+                  <GiReceiveMoney size={25} color="white"/>
                 </div>
                 <div className="ml-4 text-lg flex items-center ">
-                  <BiRupee size={32} color="gray"/>
-                  <CountUp end={dashboardData.codTotal} decimals={2} className="text-xl text-gray-600" duration={5} />
+                  <BiRupee size={32} color="white"/>
+                  <CountUp end={dashboardData.codTotal} decimals={2} className="text-xl text-white" duration={5} />
                 </div>
               </div>
-              <p className="mt-2 text-sm text-gray-700 text-center">Total COD</p>
+              <p className="mt-2 text-sm text-white text-center">Total COD</p>
             </div>
-            <div className="flex flex-col py-4 px-4 border border-gray-400 rounded-md">
+            <div className="flex flex-col py-4 px-4  bg-[#34495E] rounded-md">
               <div className="flex flex-row items-center">
                 <div className="ml-2">
-                  <RiBillLine size={25} color="gray"/>
+                  <RiBillLine size={25} color="white"/>
                 </div>
                 <div className="ml-4 text-lg flex items-center ">
-                  <BiRupee size={32} color="gray"/>
-                  <CountUp end={dashboardData.paidTotal} decimals={2} className="text-xl text-gray-600" duration={5} />
+                  <BiRupee size={32} color="white"/>
+                  <CountUp end={dashboardData.paidTotal} decimals={2} className="text-xl text-white" duration={5} />
                 </div>
               </div>
-              <p className="mt-2 text-sm text-gray-700 text-center">Total Payment</p>
+              <p className="mt-2 text-sm text-white text-center">Total Payment</p>
             </div>
           </div>
           <div className="w-[90%] lg:w-[50%] flex justify-center mt-4 lg:mt-0 lg:p-4 h-full">

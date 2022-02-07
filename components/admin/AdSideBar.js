@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Image from "next/image"
 import {useRouter} from "next/router"
 import {GoHome} from "react-icons/go"
@@ -8,8 +8,16 @@ import {useDispatch,useSelector}  from "react-redux"
 import {siteTypes} from "../../redux/types"
 import {AiOutlineUser,AiOutlineClose} from "react-icons/ai"
 import {RiSlideshowLine} from "react-icons/ri"
-
+import {toast} from "react-toastify"
+import {adminOrderTypes,notifyTypes} from "../../redux/types"
+import io from "socket.io-client"
+import "react-toastify/dist/ReactToastify.css"
+toast.configure()
+const SERVER_URL=`${process.env.NEXT_PUBLIC_SERVER_URL}`
+var socket
 const AdSideBar = () => {
+
+  const isOrderPage=useSelector(state=>state.siteReducer.tabIndex)
   const Router=useRouter()
   const dispatch=useDispatch()
   const isAdminSidebarOpen=useSelector(state=>state.siteReducer.isAdminSidebarOpen)
@@ -29,6 +37,22 @@ const AdSideBar = () => {
   const backToHome=()=>{
     Router.push("/")
   }
+  useEffect(()=>{
+    socket=io(SERVER_URL)
+    socket.emit("join","adminRoom")
+  },[])
+
+  useEffect(()=>{
+    socket.on("orderPlaced",(newOrder)=>{
+      if(isOrderPage==1){
+        dispatch({type:adminOrderTypes.ADD_NEW_ORDER,payload:newOrder})
+      }else{
+        dispatch({type:notifyTypes.NOTIFY_SET,payload:newOrder})
+      }
+      toast.success("new Order Added",{position:toast.POSITION.TOP_RIGHT})
+    })
+  },[dispatch])
+
     return (
       <div className={`lg:flex lg:translate-x-0 flex-col items-center w-2/4 bg-white lg:w-[20vw]  fixed transition-all overflow-hidden duration-500 ease-in
            top-0 h-[100vh]  h-full z-[120] ${isAdminSidebarOpen ? "translate-x-0 ":"-translate-x-[100vw] "}`}
@@ -49,26 +73,26 @@ const AdSideBar = () => {
             <p className="ml-2"><GoHome color="black" size={20}/></p>
             <p className="text-gray-700 text-lg ml-2 transition-all duration-300 ease-in hover:text-white ">Dashboard</p>
           </li>
-          <li className={`flex items-center  ${tabIndex==3 && "bg-teal-600 "} w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
-            onClick={()=>tabFlow(3,"order")}
+          <li className={`flex items-center  ${tabIndex==1 && "bg-teal-600 "} w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
+            onClick={()=>tabFlow(1,"order")}
             >
             <p className="ml-2"><FaRegMoneyBillAlt color="black" size={20}/></p>
             <p className="text-gray-700 text-lg ml-2 transition-all duration-300 ease-in hover:text-white ">Orders</p>
           </li>
-          <li className={`flex items-center  ${tabIndex==4 && "bg-teal-600 "} w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
-            onClick={()=>tabFlow(4,"slides")}
+          <li className={`flex items-center  ${tabIndex==2 && "bg-teal-600 "} w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
+            onClick={()=>tabFlow(2,"slides")}
             >
             <p className="ml-2"><RiSlideshowLine color="black" size={20}/></p>
-          <p className="text-gray-700 text-lg ml-2 transition-all duration-300 ease-in hover:text-white ">Slides</p>
+          <p className="text-gray-700 text-lg ml-2 transition-all duration-300 ease-in hover:text-white ">Banners</p>
           </li>
-          <li className={`flex items-center ${tabIndex==1 && "bg-teal-600 "}  w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
-            onClick={()=>tabFlow(1,"customer")}
+          <li className={`flex items-center ${tabIndex==3 && "bg-teal-600 "}  w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
+            onClick={()=>tabFlow(3,"customer")}
             >
             <p className="ml-2"><AiOutlineUser color="black" size={20}/></p>
             <p className="text-gray-700 text-lg ml-2 transition-all duration-300 ease-in hover:text-white">Customers</p>
           </li>
-          <li className={`flex items-center ${tabIndex==2 && "bg-teal-600 "}  w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
-            onClick={()=>tabFlow(2,"product")}
+          <li className={`flex items-center ${tabIndex==4 && "bg-teal-600 "}  w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
+            onClick={()=>tabFlow(4,"product")}
             >
             <p className="ml-2"><MdProductionQuantityLimits color="black" size={20}/></p>
             <p className="text-gray-700 text-lg ml-2 transition-all duration-300 ease-in  hover:text-white">Products</p>

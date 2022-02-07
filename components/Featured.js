@@ -5,7 +5,7 @@ import {banners} from "./banners"
 import Carouesel from 'react-elastic-carousel';
 
 
-const Featured = () => {
+const Featured = ({slidesData}) => {
   const  carouselRef=useRef(null)
   let resetTimeout;
   const breakPoints = [
@@ -66,9 +66,9 @@ const Featured = () => {
 
         >
           {
-            banners.map((img,index)=>(
+            slidesData.map((item,index)=>(
                 <img
-                  src={img}
+                  src={item.slideImage}
                   alt="image"
                   key={index}
                   className="w-[100vw] h-[100vh] object-fill p-0 m-0"

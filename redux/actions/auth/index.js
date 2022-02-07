@@ -42,7 +42,7 @@ export const loginAction=(email,password)=>async (dispatch,getState)=>{
 
   }
 }
-export const adminLoginAction=(email,password)=>async (dispatch,getState)=>{
+export const adminLoginAction=(email,password,router)=>async (dispatch,getState)=>{
   try{
     dispatch({type:authTypes.GET_CREDEN_REQ})
     const {data}=await axios.post("/api/auth/admin/login",{email,password},{
@@ -54,6 +54,7 @@ export const adminLoginAction=(email,password)=>async (dispatch,getState)=>{
     dispatch({type:authTypes.GET_CREDEN_SUCCESS,payload:data.authUser})
     if(data.status)
       sessionStorage.setItem("pizzahut-auth-data",JSON.stringify(data.authUser))
+      router.push("/admin")
   }catch(err){
     dispatch({type:authTypes.GET_CREDEN_REQ,payload:err})
   }

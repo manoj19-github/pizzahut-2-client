@@ -1,4 +1,4 @@
-import {adminProductTypes} from "../../types"
+import {adminProductTypes,adminOrderTypes} from "../../types"
 import axios from "axios"
 import Swal from 'sweetalert2'
 export const deleteProductData=(productId)=>async dispatch=>{
@@ -7,6 +7,7 @@ export const deleteProductData=(productId)=>async dispatch=>{
     const config={
       headers:{
         "Access-Control-Allow-Credentials": true,
+          "Content-Type":"application/json",
       }
     }
     const payload={productId}
@@ -28,5 +29,21 @@ export const deleteProductData=(productId)=>async dispatch=>{
 
   }catch(err){
     console.log("error in deleteProductData ",err)
+  }
+}
+
+export const orderStatusChange=(orderId,newStatus)=>async dispatch=>{
+  try{
+    const payload={orderId,newStatus}
+    const config={
+      headers:{
+          "Access-Control-Allow-Credentials": true,
+          "Content-Type":"application/json",
+      }
+    }
+    const {data}=await axios.post("/api/admin/order/statusChange",payload,config)
+    dispatch({type:adminOrderTypes.EDIT_ORDER_STATUS,payload:data.updatedOrder})
+  }catch(err){
+    console.log("order status change")
   }
 }

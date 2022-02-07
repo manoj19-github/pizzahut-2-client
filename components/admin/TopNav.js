@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {AiOutlineSearch} from "react-icons/ai"
-
+import io from "socket.io-client"
 import {BsBell,BsHandbagFill,BsFillCartCheckFill} from "react-icons/bs"
 import {GrMoney,GiPayMoney} from "react-icons/gi"
 import {BiRupee} from "react-icons/bi"
@@ -8,6 +8,8 @@ import {useSelector,useDispatch} from "react-redux"
 import {authTypes} from "../../redux/types"
 import {logoutAction} from "../../redux/actions/auth"
 import {useRouter} from "next/router"
+const SERVER_URL=`${process.env.NEXT_PUBLIC_SERVER_URL}`
+var socket
 const TopNav = () => {
   const dispatch=useDispatch()
   const [note,setNote]=useState(false)
@@ -25,6 +27,22 @@ const TopNav = () => {
   const handleLogout=()=>{
     dispatch(logoutAction())
   }
+  useEffect(()=>{
+    socket=io(SERVER_URL)
+    socket.emit("join","adminRoom")
+  },[])
+
+  useEffect(()=>{
+    socket.on("orderPlaced",(newOrder)=>{
+      if(isOrderPage==1){
+        dispatch({type:adminOrderTypes.ADD_NEW_ORDER,payload:newOrder})
+      }else{
+        dispatch({type:notifyTypes.NOTIFY_SET,payload:newOrder})
+      }
+      toast.success("new Order Added",{position:toast.POSITION.TOP_RIGHT})
+    })
+  },[dispatch])
+  const notifyData=useSelector(state=>state.notifyReducer.notifyData)
     return (
         <div className="p-4 flex z-[100] items-center justify-between h-16 sticky top-0 bg-white">
 
@@ -41,7 +59,9 @@ const TopNav = () => {
 
               <div className="mr-2 relative">
                 <BsBell size={28} className=""/>
-                <div className=" absolute -right-1 -top-3 rounded-full bg-blue-600 px-[0.3rem]">5</div>
+                {
+                  notifyData?.length>=1 && <div className=" absolute -right-1 -top-3 rounded-full bg-blue-600 px-[0.3rem]">{notifyData.length}</div>
+                }
               </div>
 
               <div className={`

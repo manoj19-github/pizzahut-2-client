@@ -14,12 +14,13 @@ import "react-credit-cards/es/styles-compiled.css"
 import StripeCheckout from "react-stripe-checkout"
 import {makePaymentWithCard} from "../redux/actions/payment/makePaymentWithCard"
 import{makePaymentWithCod} from "../redux/actions/payment/makePaymentWithCod"
-
+import HeadTag from "../components/HeadTag"
 toast.configure()
 
 const Delivery = () => {
   const Router=useRouter()
-  const reRef=useRef()
+  const savebtnRef=useRef()
+
   const [defaultAddress,setDefaultAddress]=useState(false)
   const [captcheEnabled,setCaptchaEnabled]=useState(false)
 
@@ -100,6 +101,7 @@ const Delivery = () => {
       alert("please click the cpatcha")
       return
     }
+
     dispatch(makePaymentWithCod(orderData,Router))
   }
   const orderRequestWithCard=(token)=>{
@@ -212,7 +214,7 @@ const Delivery = () => {
                 </ErrorMessage>
                 </div>
                 <div className="w-full flex flex-col flex-wrap my-4 mx-0">
-                  <Field type="submit" name="submit" id="submit"
+                  <Field type="submit" name="submit" id="submit" ref={savebtnRef}
                     className="submitBtn border border-gray-700 ml-[18vw] md:ml-[10vw] w-[60%] py-2 rounded-md bg-gray-600"
                     value="Save And Continue"
                   />
