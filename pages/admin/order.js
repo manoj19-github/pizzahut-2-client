@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import AdSideBar from "../../components/admin/AdSideBar"
 import TopNav from "../../components/admin/TopNav"
 import {GiReceiveMoney,GiPayMoney,GiHamburgerMenu} from "react-icons/gi"
@@ -7,10 +7,17 @@ import {useDispatch,useSelector} from "react-redux"
 import Image from "next/image"
 import {AiOutlineDelete} from "react-icons/ai"
 import {FaEdit} from "react-icons/fa"
-
-const Order = () => {
-  const isAdminSidebarOpen=useSelector(state=>state.siteReducer.isAdminSidebarOpen)
+import {adminOrderTypes} from "../../redux/types"
+const Order = ({orders}) => {
   const dispatch=useDispatch()
+  useEffect(()=>{
+      dispatch({type:adminOrderTypes.SET_ORDER_DATA,payload:orders})
+  },[dispatch])
+  const isAdminSidebarOpen=useSelector(state=>state.siteReducer.isAdminSidebarOpen)
+  const orderData=useSelector(state=>state.adminOrderReducer.orderData)
+  const handleChange=()=>{
+
+  }
   const toggleAdminSidebar=()=>{
     if(isAdminSidebarOpen){
       dispatch({type:siteTypes.HIDE_AD_SIDEBAR})
@@ -31,7 +38,6 @@ const Order = () => {
             <table className=" w-auto overflow-auto">
               <tr className=" flex w-auto border border-gray-600 justify-evenly items-center font-bold text-white text-sm bg-gray-700">
                   <th className="flex-1">Products</th>
-                  <th className="flex-1">Ingridients</th>
                   <th className="flex-1">Orderer</th>
                   <th className="flex-1">Delivery Address</th>
                   <th className="flex-1">Quantity</th>
@@ -43,79 +49,66 @@ const Order = () => {
                   <th className="flex-1">Payment Status</th>
                   <th className="flex-1">Order Status</th>
                 </tr>
-                <tr className="flex  justify-between   w-[100%] border border-gray-600 items-center text-blue-700">
-                  <td  className="flex-1 text-center text-gray-500 ">Chicken Pizza</td>
-                  <td  className="flex-1 text-center  ">extra sauss</td>
-                  <td  className=" flex-1 text-center text-gray-500  ">Manoj Santra</td>
-                  <td  className=" flex-1 flex justify-center  ">ramnagar</td>
-                  <td  className=" flex-1 flex justify-center text-gray-500">3</td>
-                  <td  className=" flex-1 flex justify-center  ">934</td>
-                  <td  className=" flex-1 flex justify-center text-gray-500">Gagan Das,gagan@gmail.com</td>
-                  <td  className=" flex-1 flex justify-center ">893439034</td>
-                  <td  className=" flex-1 flex justify-center text-gray-500">Paytm</td>
-                  <td  className=" flex-1 flex justify-center ">Paid</td>
-                  <td  className=" flex-1 flex justify-center text-gray-500 ">
-                    <form>
-                    <select>
-                      <option value="order_placed">Order Placed</option>
-                      <option value="prepared">Prepared</option>
-                      <option value="out_for_delivery">Out for Delivery</option>
-                      <option value="delivered">Delivered</option>
-                      <option value="rejected">Rejected</option>
+                {
+                  orderData && orderData.map((order,index)=>(
+                    <tr className="flex text-[15px] justify-between   w-[100%] border border-gray-600 items-center text-blue-700" key={index}>
+                      <td  className="flex-1 text-center text-gray-500 ">
+                        {
+                          order.product?.map((item,index)=>(
+                            <span key={index}>{item.product.name} ,</span>
+                          ))
+                        }
+                      </td>
 
-                    </select>
-                    </form>
-                  </td>
-              </tr>
+                      <td  className=" flex-1 text-center text-gray-500  ">
+                        {
+                          order.customerId.name
+                        }
+                      </td>
+                      <td  className=" flex-1 flex justify-center  ">
+                        {order.address}
+                      </td>
+                      <td  className=" flex-1 flex justify-center text-gray-500">
+                        {
+                          order.product.reduce((total,val)=>total+val.quantity,0)
+                        }
+                      </td>
+                      <td  className=" flex-1 flex justify-center  ">
+                        {
+                          order.orderPrice
+                        }
+                      </td>
+                      <td  className=" flex-1 text-[13px] text-gray-500">
+                        <p>{order.name}</p>
+                        <p>{order.email}</p>
 
-              <tr className="flex  justify-between   w-[100%] border border-gray-600 items-center text-blue-700">
-                <td  className="flex-1 text-center text-gray-500 ">Chicken Pizza</td>
-                <td  className="flex-1 text-center  ">extra sauss</td>
-                <td  className=" flex-1 text-center text-gray-500  ">Manoj Santra</td>
-                <td  className=" flex-1 flex justify-center  ">ramnagar</td>
-                <td  className=" flex-1 flex justify-center text-gray-500">3</td>
-                <td  className=" flex-1 flex justify-center  ">934</td>
-                <td  className=" flex-1 flex justify-center text-gray-500">Gagan Das,gagan@gmail.com</td>
-                <td  className=" flex-1 flex justify-center ">893439034</td>
-                <td  className=" flex-1 flex justify-center text-gray-500">Paytm</td>
-                <td  className=" flex-1 flex justify-center ">Paid</td>
-                <td  className=" flex-1 flex justify-center text-gray-500 ">
-                  <form>
-                  <select>
-                    <option value="order_placed">Order Placed</option>
-                    <option value="prepared">Prepared</option>
-                    <option value="out_for_delivery">Out for Delivery</option>
-                    <option value="delivered">Delivered</option>
-                    <option value="rejected">Rejected</option>
+                      </td>
+                      <td  className=" flex-1 flex justify-center ">
+                        {order.phone}
+                      </td>
+                      <td  className=" flex-1 flex justify-center text-gray-500">
+                        {order.paymentType}
+                      </td>
+                      <td  className={` flex-1 flex justify-center
+                          ${order.paymentStatus ?"text-green-600":"text-red-600"} `}>
+                        {order.paymentStatus?"Paid":"not Paid"}
+                      </td>
+                      <td  className=" flex-1 flex justify-center text-gray-500 ">
+                        <form>
+                          <select onChange={handleChange}>
+                            <option value="order_placed">Order Placed</option>
+                            <option value="prepared">Prepared</option>
+                            <option value="out_for_delivery">Out for Delivery</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="rejected">Rejected</option>
 
-                  </select>
-                  </form>
-                </td>
-            </tr>
-            <tr className="flex  justify-between   w-[100%] border border-gray-600 items-center text-blue-700">
-              <td  className="flex-1 text-center text-gray-500 ">Chicken Pizza</td>
-              <td  className="flex-1 text-center  ">extra sauss</td>
-              <td  className=" flex-1 text-center text-gray-500  ">Manoj Santra</td>
-              <td  className=" flex-1 flex justify-center  ">ramnagar</td>
-              <td  className=" flex-1 flex justify-center text-gray-500">3</td>
-              <td  className=" flex-1 flex justify-center  ">934</td>
-              <td  className=" flex-1 flex justify-center text-gray-500">Gagan Das,gagan@gmail.com</td>
-              <td  className=" flex-1 flex justify-center ">893439034</td>
-              <td  className=" flex-1 flex justify-center text-gray-500">Paytm</td>
-              <td  className=" flex-1 flex justify-center ">Paid</td>
-              <td  className=" flex-1 flex justify-center text-gray-500 ">
-                <form>
-                <select>
-                  <option value="order_placed">Order Placed</option>
-                  <option value="prepared">Prepared</option>
-                  <option value="out_for_delivery">Out for Delivery</option>
-                  <option value="delivered">Delivered</option>
-                  <option value="rejected">Rejected</option>
+                          </select>
+                        </form>
+                      </td>
+                  </tr>
 
-                </select>
-                </form>
-              </td>
-          </tr>
+                  ))
+                }
             </table>
           </div>
         </div>
@@ -131,4 +124,34 @@ Order.getLayout=function pageLayout(page){
     </>
   )
 
+}
+
+export async function getServerSideProps({req}){
+  try{
+    const Cookie=req.headers.cookie|| ""
+    const config={
+      credentials:"include",
+      headers:{
+        Accept:"application/json",
+        "Content-Type":"application/json",
+        Cookie
+      }
+    }
+    const rawData=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/dashboard/orders`,config)
+    const ordersData=await rawData.json()
+    if(!ordersData.status){
+      return{
+        props:{
+          orders:null
+        }
+      }
+    }
+    return{
+        props:{
+          orders:ordersData.orders
+        }
+    }
+  }catch(err){
+    console.log("error occured in dashboard",err)
+  }
 }

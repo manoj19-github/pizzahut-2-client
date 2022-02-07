@@ -8,10 +8,12 @@ import {useDispatch,useSelector} from "react-redux"
 import {GiReceiveMoney,GiPayMoney,GiHamburgerMenu} from "react-icons/gi"
 import TopNav from "../../components/admin/TopNav"
 import {siteTypes} from "../../redux/types"
+import {useRouter} from "next/router"
 const addProduct = () => {
   const [selectedFile,setSelectedFile]=useState(null)
   const [fileData,setFileData]=useState(null)
   const dispatch=useDispatch()
+  const Router=useRouter()
   const isAdminSidebarOpen=useSelector(state=>state.siteReducer.isAdminSidebarOpen)
   const toggleAdminSidebar=()=>{
     if(isAdminSidebarOpen){
@@ -48,20 +50,17 @@ const addProduct = () => {
     console.log("values",values)
     console.log(newProduct(values,fileData))
     onSubmitProps.resetForm()
-
+    Router.push("/admin/product")
   }
   const changeEvent=(event)=>{
     setFileData(event.target.files[0])
     const reader=new FileReader()
     if(event.target.files[0]){
       reader.readAsDataURL(event.target.files[0])
-
-
     }
     reader.addEventListener("load",(readerEvent)=>{
       setSelectedFile(readerEvent.target.result)
     })
-
   }
   const validationSchema=Yup.object({
     name:Yup.string().min(6, 'Must minimum 6 digits')
@@ -70,7 +69,6 @@ const addProduct = () => {
     details:Yup.string().required("details Required"),
 
   })
-
     return (
       <div className="flex  w-full h-full ">
         <AdSidebar/>

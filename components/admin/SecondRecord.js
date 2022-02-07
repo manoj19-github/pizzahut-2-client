@@ -23,7 +23,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const SecondRecord = ({data}) => {
+const SecondRecord = ({data,customers}) => {
     return (
       <div className="flex flex-col lg:flex-row  mt-8">
           <div className="w-[90%] lg:w-[50%] flex justify-center mt-4 lg:mt-0 lg:p-4 h-full">
@@ -37,31 +37,17 @@ const SecondRecord = ({data}) => {
                   <th className="flex-1">Email</th>
                   <th className="flex-1">Total Orders</th>
                 </tr>
-                  <tr className="flex  justify-between   w-[100%] border border-gray-600 items-center">
-                    <td  className="flex-1 text-center">Manoj Santra</td>
-                    <td  className="flex-1 text-center">Santra@gmail.com</td>
-                    <td  className="flex-1 text-center">24</td>
-                  </tr>
-                  <tr className="flex  justify-between   w-[100%] border border-gray-600 items-center">
-                    <td  className="flex-1 text-center">Manoj Santra</td>
-                    <td  className="flex-1 text-center">Santra@gmail.com</td>
-                    <td  className="flex-1 text-center">24</td>
-                  </tr>
-                  <tr className="flex  justify-between   w-[100%] border border-gray-600 items-center">
-                    <td  className="flex-1 text-center">Manoj Santra</td>
-                    <td  className="flex-1 text-center">Santra@gmail.com</td>
-                    <td  className="flex-1 text-center">24</td>
-                  </tr>
-                  <tr className="flex  justify-between   w-[100%] border border-gray-600 items-center">
-                    <td  className="flex-1 text-center">Manoj Santra</td>
-                    <td  className="flex-1 text-center">Santra@gmail.com</td>
-                    <td  className="flex-1 text-center">24</td>
-                  </tr>
-                  <tr className="flex  justify-between   w-[100%] border border-gray-600 items-center">
-                    <td  className="flex-1 text-center">Manoj Santra</td>
-                    <td  className="flex-1 text-center">Santra@gmail.com</td>
-                    <td  className="flex-1 text-center">24</td>
-                  </tr>
+                {
+                  customers?.map((customer,index)=>(
+                    <tr key={index} className="flex  justify-between   w-[100%] border border-gray-600 items-center">
+                      <td  className="text-center">{customer._id.name}</td>
+                      <td  className="ml-2 text-right">{customer._id.email}</td>
+                      <td  className=" text-right mr-2">{customer.count}</td>
+                    </tr>
+
+                  ))
+                }
+
             </table>
           </div>
       </div>

@@ -11,7 +11,7 @@ import {
   Chart as ChartJS,
   CategoryScale,
   BarElement,
-  PieElement,
+  ArcElement,
   LinearScale,
   PointElement,
   LineElement,
@@ -22,7 +22,7 @@ import {
 
 ChartJS.register(
   BarElement,
-  PieElement,
+  ArcElement,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -32,7 +32,7 @@ ChartJS.register(
   Legend
 );
 
-const FirstRecord = ({data}) => {
+const FirstRecord = ({data,dashboardData}) => {
     return (
       <div className="flex flex-col w-full">
         <p className="text-gray-600">Dashboard</p>
@@ -42,11 +42,11 @@ const FirstRecord = ({data}) => {
             <div className="flex flex-col py-4 px-4 border border-gray-400 rounded-md">
               <div className="flex flex-row items-center">
                 <div className="ml-2">
-                  <BsHandbag size={25} color="gray"/>
+                  <BsHandbag size={25} color="gray" className="cursor-pointer"/>
                 </div>
                 <div className="ml-4   text-lg flex items-center ">
                   <BiRupee size={32} color="gray"/>
-                  <CountUp end={1902} decimals={2} className="text-xl text-gray-600" duration={5} />
+                  <CountUp end={dashboardData.orderTotal} decimals={2} className="text-xl text-gray-600" duration={5} />
                 </div>
               </div>
               <p className="mt-2 text-sm text-gray-700 text-center">Total Orders</p>
@@ -58,7 +58,7 @@ const FirstRecord = ({data}) => {
                 </div>
                 <div className="ml-4 text-lg flex items-center ">
                   <BiRupee size={32} color="gray"/>
-                  <CountUp end={1902} decimals={2} className="text-xl text-gray-600" duration={5} />
+                  <CountUp end={dashboardData.cartTotal} decimals={2} className="text-xl text-gray-600" duration={5} />
                 </div>
               </div>
               <p className="mt-2 text-sm text-gray-700 text-center">Total Cart</p>
@@ -70,7 +70,7 @@ const FirstRecord = ({data}) => {
                 </div>
                 <div className="ml-4 text-lg flex items-center ">
                   <BiRupee size={32} color="gray"/>
-                  <CountUp end={1902} decimals={2} className="text-xl text-gray-600" duration={5} />
+                  <CountUp end={dashboardData.codTotal} decimals={2} className="text-xl text-gray-600" duration={5} />
                 </div>
               </div>
               <p className="mt-2 text-sm text-gray-700 text-center">Total COD</p>
@@ -82,7 +82,7 @@ const FirstRecord = ({data}) => {
                 </div>
                 <div className="ml-4 text-lg flex items-center ">
                   <BiRupee size={32} color="gray"/>
-                  <CountUp end={1902} decimals={2} className="text-xl text-gray-600" duration={5} />
+                  <CountUp end={dashboardData.paidTotal} decimals={2} className="text-xl text-gray-600" duration={5} />
                 </div>
               </div>
               <p className="mt-2 text-sm text-gray-700 text-center">Total Payment</p>

@@ -31,7 +31,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const PieRecord = () => {
+const PieRecord = ({pieLabel,pieData}) => {
     return (
       <div className="mt-8">
       <h4 className="text-center text-gray-700">Best 5 product of Sales</h4>
@@ -39,11 +39,11 @@ const PieRecord = () => {
 
    <Pie
      data={{
-       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+       labels:pieLabel,
        datasets: [
          {
            label: 'Best 5 product of Sales',
-           data: [2, 19, 3, 5, 2, 3],
+           data:pieData,
            backgroundColor: [
              'rgba(255, 99, 132, 0.6)',
              'rgba(54, 162, 235, 0.6)',

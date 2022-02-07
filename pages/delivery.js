@@ -1,3 +1,4 @@
+
 import React,{useState,useEffect,useRef} from 'react'
 import { PayPalButton } from "react-paypal-button-v2";
 import {BiRupee} from "react-icons/bi"
@@ -117,6 +118,7 @@ const Delivery = () => {
   }
     return (
         <div className="flex justify-around flex-col md:flex-row px-1 py-4 sm:p-4 ">
+          <HeadTag headLine="PizzaHut"/>
           <div className="w-full md:w-2/3">
             <div className="my-4 w-full">
               <h3 className="text-gray-500 text-center text-base">DELIVERY ADDRESS</h3>

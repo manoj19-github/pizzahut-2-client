@@ -7,6 +7,7 @@ import {FaRegMoneyBillAlt} from "react-icons/fa"
 import {useDispatch,useSelector}  from "react-redux"
 import {siteTypes} from "../../redux/types"
 import {AiOutlineUser,AiOutlineClose} from "react-icons/ai"
+import {RiSlideshowLine} from "react-icons/ri"
 
 const AdSideBar = () => {
   const Router=useRouter()
@@ -48,6 +49,18 @@ const AdSideBar = () => {
             <p className="ml-2"><GoHome color="black" size={20}/></p>
             <p className="text-gray-700 text-lg ml-2 transition-all duration-300 ease-in hover:text-white ">Dashboard</p>
           </li>
+          <li className={`flex items-center  ${tabIndex==3 && "bg-teal-600 "} w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
+            onClick={()=>tabFlow(3,"order")}
+            >
+            <p className="ml-2"><FaRegMoneyBillAlt color="black" size={20}/></p>
+            <p className="text-gray-700 text-lg ml-2 transition-all duration-300 ease-in hover:text-white ">Orders</p>
+          </li>
+          <li className={`flex items-center  ${tabIndex==4 && "bg-teal-600 "} w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
+            onClick={()=>tabFlow(4,"slides")}
+            >
+            <p className="ml-2"><RiSlideshowLine color="black" size={20}/></p>
+          <p className="text-gray-700 text-lg ml-2 transition-all duration-300 ease-in hover:text-white ">Slides</p>
+          </li>
           <li className={`flex items-center ${tabIndex==1 && "bg-teal-600 "}  w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
             onClick={()=>tabFlow(1,"customer")}
             >
@@ -60,12 +73,7 @@ const AdSideBar = () => {
             <p className="ml-2"><MdProductionQuantityLimits color="black" size={20}/></p>
             <p className="text-gray-700 text-lg ml-2 transition-all duration-300 ease-in  hover:text-white">Products</p>
           </li>
-          <li className={`flex items-center  ${tabIndex==3 && "bg-teal-600 "} w-[90%] rounded-md ml-4 mb-6 hover:bg-teal-600  py-2 cursor-pointer transition-all duration-300 ease-in`}
-            onClick={()=>tabFlow(3,"order")}
-            >
-            <p className="ml-2"><FaRegMoneyBillAlt color="black" size={20}/></p>
-            <p className="text-gray-700 text-lg ml-2 transition-all duration-300 ease-in hover:text-white ">Orders</p>
-          </li>
+
           <li>
             <p className=" flex mt-16 hover:text-black cursor-pointer text-sm text-gray-600" onClick={backToHome}>Back To Home Page</p>
           </li>
