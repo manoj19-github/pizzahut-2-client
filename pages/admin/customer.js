@@ -27,7 +27,7 @@ const Customer = ({customers}) => {
           <div className="block lg:hidden mb-4" onClick={toggleAdminSidebar}>
             <GiHamburgerMenu size={28} color="gray"/>
           </div>
-          <div class="flex ml-2 mr-2 mt-3 mb-8 flex-col w-full ">
+          <div className="flex ml-2 mr-2 mt-3 mb-8 flex-col w-full ">
             <h1 className="text-gray-600 text-center pb-2 border-b border-gray-600 mb-4 text-2xl font-bold">Customers Gallery</h1>
             <div className="w-full flex justify-between items-center">
               <table className="w-[90%] mx-auto mr-2 overflow-auto">
@@ -38,7 +38,7 @@ const Customer = ({customers}) => {
                 </tr>
                 {
                   customers?.cartProduct?.map((data,index)=>(
-                    <tr className="flex text-sm justify-between   w-[100%] border border-gray-600 items-center">
+                    <tr key={index} className="flex text-sm justify-between   w-[100%] border border-gray-600 items-center">
                       <td  className=" text-center">{data._id.user.name}</td>
                       <td  className="text-left">{data._id.user.email}</td>
                       <td  className="text-center mr-3">{data._id.product?.length}</td>
@@ -56,7 +56,7 @@ const Customer = ({customers}) => {
                 </tr>
                 {
                   customers?.orderProduct?.map((data,index)=>(
-                    <tr className="flex text-sm justify-between   w-[100%] border border-gray-600 items-center">
+                    <tr key={index} className="flex text-sm justify-between   w-[100%] border border-gray-600 items-center">
                       <td  className=" text-center">{data._id.name}</td>
                       <td  className="text-left">{data._id.email}</td>
                       <td  className="text-left mr-2">{data.count}</td>

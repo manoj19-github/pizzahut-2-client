@@ -40,7 +40,7 @@ const Order = ({orderData}) => {
                     <tbody className="text-gray-700 mt-4  flex flex-col justify-between items-center mb-12 md:mb-4  rounded-md shadow-md lg:border-0">
                       {
                         orderData.map((order,index)=>(
-                          <tr className="flex w-full  justify-between items-center flex-col lg:flex-row border rounded-md border-gray-400 md:border-0 my-4 ">
+                          <tr key={index} className="flex w-full  justify-between items-center flex-col lg:flex-row border rounded-md border-gray-400 md:border-0 my-4 ">
                             <td className="flex justify-between items-center  w-full lg:w-auto mb-4 lg:mb-0 flex-col sm:flex-row">
                               <p className="block flex-1 lg:hidden  text-center font-bold">Order Id   : </p>
                             <p className={`text-gray-700 text-[13px] flex-1 text-center

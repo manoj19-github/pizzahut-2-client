@@ -9,7 +9,7 @@ import {GiReceiveMoney,GiPayMoney,GiHamburgerMenu} from "react-icons/gi"
 import TopNav from "../../components/admin/TopNav"
 import {siteTypes} from "../../redux/types"
 import {useRouter} from "next/router"
-const addProduct = () => {
+const AddProduct = () => {
   const [selectedFile,setSelectedFile]=useState(null)
   const [fileData,setFileData]=useState(null)
   const dispatch=useDispatch()
@@ -274,7 +274,7 @@ const addProduct = () => {
     )
 }
 
-export default addProduct
+export default AddProduct
 
 addProduct.getLayout=function PageLayout(page){
   return(

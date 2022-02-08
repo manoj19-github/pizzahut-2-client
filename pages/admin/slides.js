@@ -9,7 +9,7 @@ import {IoIosCloseCircleOutline} from "react-icons/io"
 import {slideTypes} from "../../redux/types"
 import {addSlide,delSlide} from "../../redux/actions/admin/slideAction"
 import Swal from "sweetalert2"
-const slides = ({slidesData}) => {
+const Slides = ({slidesData}) => {
   const [selectedFile,setSelectedFile]=useState(null)
   const [fileData,setFileData]=useState(null)
   const isAdminSidebarOpen=useSelector(state=>state.siteReducer.isAdminSidebarOpen)
@@ -136,7 +136,7 @@ const slides = ({slidesData}) => {
     )
 }
 
-export default slides
+export default Slides
 slides.getLayout=function pageLayout(page){
   return(
     <>
