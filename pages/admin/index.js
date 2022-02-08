@@ -140,7 +140,7 @@ const AdminPage = ({dashboardData,lastData}) => {
                     </tr>
                     {
                       lastData?.topSalesProduct?.map((data,index)=>(
-                        <tr className="flex  justify-between   w-[100%] border border-gray-600 items-center">
+                        <tr key={index} className="flex  justify-between   w-[100%] border border-gray-600 items-center">
                           <td  className="flex-1 text-center">
                             <Image src={data._id.image} width="60px" height="50px"/>
                           </td>

@@ -45,7 +45,7 @@ const Order = ({orders}) => {
           <div className="block lg:hidden mb-4" onClick={toggleAdminSidebar}>
             <GiHamburgerMenu size={28} color="gray"/>
           </div>
-          <div class="flex ml-2 mr-2 mt-3 mb-8 flex-col w-full ">
+          <div className="flex ml-2 mr-2 mt-3 mb-8 flex-col w-full ">
             <h1 className="text-gray-600 text-center pb-2 border-b border-gray-600 mb-4 text-2xl font-bold">Orders Gallery</h1>
             <table className=" w-auto overflow-auto">
               <tr className=" flex w-auto border border-gray-600 justify-evenly items-center font-bold text-white text-sm bg-gray-700">

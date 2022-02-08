@@ -51,7 +51,7 @@ const Product = ({products}) => {
             <div className="block lg:hidden mb-4" onClick={toggleAdminSidebar}>
               <GiHamburgerMenu size={28} color="gray"/>
             </div>
-            <div class="flex ml-2 mr-2 mt-3 mb-8 flex-col w-full ">
+            <div className="flex ml-2 mr-2 mt-3 mb-8 flex-col w-full ">
               <div className="flex justify-end mr-8 ">
                 <Link href={"/admin/addProduct"} passHref>
                   <button
