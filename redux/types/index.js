@@ -86,5 +86,6 @@ export const slideTypes={
 
 export const notifyTypes={
   NOTIFY_SET:"NOTIFY_SET",
-  NOTIFY_RESET:"NOTIFY_RESET"
+  NOTIFY_RESET:"NOTIFY_RESET",
+  NOTIFY_CLEAN:"NOTIFY_CLEAN"
 }

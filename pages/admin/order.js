@@ -22,6 +22,9 @@ const Order = ({orders}) => {
   useEffect(()=>{
       dispatch({type:adminOrderTypes.SET_ORDER_DATA,payload:orders})
   },[dispatch])
+  useEffect(()=>{
+    dispatch({type:notifyTypes.NOTIFY_CLEAN})
+  },[])
   const isAdminSidebarOpen=useSelector(state=>state.siteReducer.isAdminSidebarOpen)
   const orderData=useSelector(state=>state.adminOrderReducer.orderData)
   const handleChange=(event,productId)=>{
@@ -106,7 +109,9 @@ const Order = ({orders}) => {
                       </td>
                       <td  className=" flex-1 flex justify-center text-gray-500 ">
                         <form>
-                          <select onChange={(e)=>handleChange(e,order._id)} value={order.status}>
+                          <select
+                            className="outline-none cursor-pointer py-2"
+                            onChange={(e)=>handleChange(e,order._id)} value={order.status}>
                             <option value="order_placed">Order Placed</option>
                             <option  value="order_prepared">Prepared</option>
                           <option  value="order_out_for_delivery">Out for Delivery</option>

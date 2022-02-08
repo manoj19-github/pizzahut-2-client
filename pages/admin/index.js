@@ -95,7 +95,7 @@ const AdminPage = ({dashboardData,lastData}) => {
     return (
         <div className="flex  h-full ">
           <AdSideBar/>
-        <div className="w-full lg:w-[80vw] lg:ml-[22vw] mb-[10vh] ">
+        <div className="w-[90vw] ml-[5vw] lg:w-[80vw] lg:ml-[22vw] mb-[10vh] ">
             <TopNav/>
           <div className="block lg:hidden mb-4" onClick={toggleAdminSidebar}>
             <GiHamburgerMenu size={28} color="gray"/>

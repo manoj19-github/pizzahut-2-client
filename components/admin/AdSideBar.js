@@ -9,21 +9,20 @@ import {siteTypes} from "../../redux/types"
 import {AiOutlineUser,AiOutlineClose} from "react-icons/ai"
 import {RiSlideshowLine} from "react-icons/ri"
 import {toast} from "react-toastify"
-import {adminOrderTypes,notifyTypes} from "../../redux/types"
-import io from "socket.io-client"
+
 import "react-toastify/dist/ReactToastify.css"
 toast.configure()
-const SERVER_URL=`${process.env.NEXT_PUBLIC_SERVER_URL}`
-var socket
+
 const AdSideBar = () => {
 
-  const isOrderPage=useSelector(state=>state.siteReducer.tabIndex)
+
   const Router=useRouter()
   const dispatch=useDispatch()
   const isAdminSidebarOpen=useSelector(state=>state.siteReducer.isAdminSidebarOpen)
   const tabIndex=useSelector(state=>state.siteReducer.tabIndex)
   const tabFlow=(link,path)=>{
     dispatch({type:siteTypes.TAB_CHANGE,payload:link})
+    localStorage.setItem("pizzahut-admin-tab",JSON.stringify({tabIndex}))
     Router.push(`/admin/${path}`)
 
   }
@@ -37,21 +36,7 @@ const AdSideBar = () => {
   const backToHome=()=>{
     Router.push("/")
   }
-  useEffect(()=>{
-    socket=io(SERVER_URL)
-    socket.emit("join","adminRoom")
-  },[])
 
-  useEffect(()=>{
-    socket.on("orderPlaced",(newOrder)=>{
-      if(isOrderPage==1){
-        dispatch({type:adminOrderTypes.ADD_NEW_ORDER,payload:newOrder})
-      }else{
-        dispatch({type:notifyTypes.NOTIFY_SET,payload:newOrder})
-      }
-      toast.success("new Order Added",{position:toast.POSITION.TOP_RIGHT})
-    })
-  },[dispatch])
 
     return (
       <div className={`lg:flex lg:translate-x-0 flex-col items-center w-2/4 bg-white lg:w-[20vw]  fixed transition-all overflow-hidden duration-500 ease-in

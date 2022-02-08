@@ -1,8 +1,13 @@
 import {siteTypes} from "../types"
+const getlocalStorageData=()=>{
+  if(typeof window!=="undefined")
+    return JSON.parse(localStorage.getItem("pizzahut-admin-tab"))?
+    JSON.parse(localStorage.getItem("pizzahut-admin-tab")).tabIndex:0
+}
 const initStates={
   isSidebarOpen:false,
   isAdminSidebarOpen:false,
-  tabIndex:0
+  tabIndex:getlocalStorageData()
 
 }
 

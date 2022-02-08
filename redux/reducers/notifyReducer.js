@@ -1,8 +1,8 @@
 import {notifyTypes} from "../types"
 const getLocalStorageData=()=>{
   if(typeof window !== "undefined")
-  return JSON.parse(localStorage.getItem("PizzaHut-admin-notify-data"))?
-  JSON.parse(localStorage.getItem("PizzaHut-admin-notify-data")):[]
+  return JSON.parse(localStorage.getItem("pizzahut-admin-notification"))?
+  [JSON.parse(localStorage.getItem("pizzahut-admin-notification"))]:[]
 
 }
 const initState={
@@ -38,9 +38,15 @@ export const notifyReducer=(state=initState,action)=>{
         return {
           notifyData:[]
         }
+      case notifyTypes.NOTIFY_CLEAN:{
+        localStorage.removeItem("PizzaHut-admin-notify-data")
+        return {
+          notifyData:[]
+        }
+      }
       default:return state
     }
   }catch(err){
-
+    console.log(`notifyreducer error `,err)
   }
 }

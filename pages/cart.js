@@ -100,7 +100,7 @@
             <h5 className="absolute text-gray-600 ml-20">Cart Empty</h5>
             <button
               className="btn absolute -bottom-20 right-24 hover:bg-gray-500 hover:text-white transition ease duration-500"
-              onClick={goToProduct}>Show Now</button>
+              onClick={goToProduct}>Shop Now</button>
               </div>
             )
             }
