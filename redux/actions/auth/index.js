@@ -14,7 +14,7 @@ export const getAuthData=()=>async (dispatch,getState)=>{
     const authUser=getState().authReducer.authUser
     dispatch({type:authTypes.GET_CREDEN_SUCCESS,payload:data.authUser})
     if(data.status)
-      sessionStorage.setItem("pizzahut-auth-data",JSON.stringify(data.authUser))
+      localStorage.setItem("pizzahut-auth-data",JSON.stringify(data.authUser))
     return true
   }catch(err){
     dispatch({type:authTypes.GET_CREDEN_FAIL,payload:err})

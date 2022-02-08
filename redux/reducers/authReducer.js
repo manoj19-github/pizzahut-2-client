@@ -16,8 +16,8 @@ const initState={
   error:"",
   userEmail:getLocalStorage("pizzahut-confirmation-details")?
   getLocalStorage("pizzahut-confirmation-details"):null,
-  authUser:getSessionStorageData("pizzahut-auth-data")?
-      getSessionStorageData("pizzahut-auth-data"):null,
+  authUser:getLocalStorage("pizzahut-auth-data")?
+      getLocalStorage("pizzahut-auth-data"):null,
 }
 export const authReducer=(state=initState,action)=>{
   const {type,payload}=action
