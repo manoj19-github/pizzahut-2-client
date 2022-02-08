@@ -65,7 +65,7 @@ const Slides = ({slidesData}) => {
       setSelectedFile(readerEvent.target.result)
     })
 
-    console.log("formData",fileData)
+
 
   }
   const uploadSlide=()=>{
@@ -118,7 +118,7 @@ const Slides = ({slidesData}) => {
           </div>
           <div className="grid grid-cols-1 grid-cols-2 grid-flow-row auto-rows-max gap-y-4 w-full mt-[14vh] ">
             {
-              !slideLoading && allSlide?.map((slide,index)=>(
+              !slideLoading && allSlide.map((slide,index)=>(
                 <div key={index} className=" relative min-h-[65vh] w-[90%] group flex justify-center items-center">
                   <Image src={`${slide.slideImage}`} layout="fill" className="absolute rounded-md transition-all duration-500 hover:opacity-50 cursor-pointer"/>
                   <IoIosCloseCircleOutline
@@ -137,7 +137,7 @@ const Slides = ({slidesData}) => {
 }
 
 export default Slides
-slides.getLayout=function pageLayout(page){
+Slides.getLayout=function pageLayout(page){
   return(
     <>
     {page}
