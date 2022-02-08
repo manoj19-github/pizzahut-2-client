@@ -66,7 +66,7 @@ const CartRow = ({tableData}) => {
         <p className=" flex-1">
         {
           tableData?.ingridients?.map((ingri,index)=>(
-            <span>{ingri.text} ,</span>
+            <span key={index}>{ingri.text} ,</span> 
           ))
         }
         </p>

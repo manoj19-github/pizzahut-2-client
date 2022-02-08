@@ -12,6 +12,7 @@ import Swal from "sweetalert2"
 const slides = ({slidesData}) => {
   const [selectedFile,setSelectedFile]=useState(null)
   const [fileData,setFileData]=useState(null)
+  const isAdminSidebarOpen=useSelector(state=>state.siteReducer.isAdminSidebarOpen)
   useEffect(()=>{
     dispatch({type:slideTypes.GET_SLIDES_REQ})
   },[])
@@ -78,11 +79,12 @@ const slides = ({slidesData}) => {
         <div className="w-full  lg:w-[75vw] lg:ml-[22vw] mb-[10vh]  ">
           <TopNav/>
 
-          <div className="flex  mr-2 mt-3 mb-8 flex flex-col w-full  fixed top-10 right-4 z-[100] bg-white">
+          <div className="flex   mt-3 mb-8 flex flex-col px-4 w-full md:w-[77%]  fixed top-10 right-4 z-[100] bg-white">
             <div className="flex justify-between items-center">
-              <div className="block lg:hidden mb-4 z-[450] border border-red-500" onClick={toggleAdminSidebar}>
-                <GiHamburgerMenu size={28} color="gray"/>
+              <div className="block lg:hidden mb-4" onClick={toggleAdminSidebar}>
+                <GiHamburgerMenu size={28} color="gray" className="cursor-pointer"/>
               </div>
+
               <button
                 onClick={addNewSlide}
                 className="btn hover:bg-[#d1411e] hover:text-white transition-all ease duration-500 mb-5">

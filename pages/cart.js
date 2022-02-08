@@ -91,7 +91,7 @@
                 </>
 
             ):(
-              <div class="w-1/2 relative h-[55vh] mx-auto my-8">
+              <div className="w-1/2 relative h-[55vh] mx-auto my-8">
 
               <Image
                 src="/img/empty-cart.png"

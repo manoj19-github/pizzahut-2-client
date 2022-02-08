@@ -82,7 +82,7 @@ const TopNav = () => {
                     key={index}
                     onClick={notifyHandler}
                     className={`
-                    absolute  top-10 w-[50vw] py-4 right-2  px-4 border border-gray-400 rounded-md`}
+                    absolute z-[150]  top-10 w-[50vw] py-4 right-2  px-4 border border-gray-400 rounded-md`}
                   >
                     new Order is placed to {note.name}
 
