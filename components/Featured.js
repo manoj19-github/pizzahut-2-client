@@ -1,5 +1,5 @@
 import React,{useState,useRef} from 'react'
-import Image from "next/Image"
+import Image from "next/image"
 import {MdArrowBackIosNew,MdArrowForwardIos} from "react-icons/md"
 import {banners} from "./banners"
 import Carouesel from 'react-elastic-carousel';
