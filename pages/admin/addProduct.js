@@ -276,7 +276,7 @@ const AddProduct = () => {
 
 export default AddProduct
 
-addProduct.getLayout=function PageLayout(page){
+AddProduct.getLayout=function PageLayout(page){
   return(
     <>
       {page}
