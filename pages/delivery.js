@@ -85,7 +85,7 @@ const Delivery = () => {
     if(!userId || !userToken){
       Router.push("/auth/login")
     }
-  },[authUser])
+  },[userId,userToken])
 
 
 
