@@ -4,7 +4,7 @@ import {useSelector,useDispatch} from "react-redux"
 const PizzaList = () => {
   const products=useSelector(state=>state.clientProductReducer.products)
     return (
-        <div className="mx-4 md:py-10 sm:px-8 flex-col flex-wrap items-center max-h-full md:flex-row md:flex-wrap sm:flex-col sm:items-center sm:justify-center">
+        <div className="mx-4 mb-24 md:py-10 sm:px-8 flex-col flex-wrap items-center max-h-full md:flex-row md:flex-wrap sm:flex-col sm:items-center sm:justify-center">
           <h1 className="text-center font-['Raleway'] text-2xl text-[#d1411e]">THE BEST PIZZA IN INDIA</h1>
           <p className="text-lg text-gray-500 w-full mb-4 text-center">
           world best pizza is here for you and you can missed you
