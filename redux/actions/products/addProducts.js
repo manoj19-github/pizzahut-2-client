@@ -1,5 +1,5 @@
 import axios from "axios"
-export const newProduct=async(formVal,imageData)=>{
+export const newProduct=(formVal,imageData)=>async(dispatch,getState)=>{
   try{
     const formData=new FormData()
 
@@ -18,7 +18,7 @@ export const newProduct=async(formVal,imageData)=>{
       url:"/api/admin/product/insert",
       headers:{
         "Content-Type":"application/json",
-        "Access-Control-Allow-Credentials": true,
+        Authorization:`bearer ${getState().authReducer.userToken || ""}`,
       },
     })
     formData.append("productId",data.products._id)
@@ -27,8 +27,9 @@ export const newProduct=async(formVal,imageData)=>{
       data:formData,
       url:"/api/admin/product/image",
       headers:{
-        "Content-Type":"multipart/form-data"
-        //"Access-Control-Allow-Credentials": true,
+        "Content-Type":"multipart/form-data",
+        Authorization:`bearer ${getState().authReducer.userToken || ""}`,
+
       },
     })
 

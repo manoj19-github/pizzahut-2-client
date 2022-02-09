@@ -1,19 +1,22 @@
 import axios from "axios"
 import swal from "sweetalert"
 import {authTypes,cartTypes} from "../../types"
-export const makePaymentWithCard=(token,orderData,Router)=>async dispatch=>{
+export const makePaymentWithCard=(token,orderData,Router)=>async (dispatch,getState)=>{
   try{
       const config={
         headers:{
           "Content-Type":"application/json",
-          "Access-Control-Allow-Credentials": true,
+          Authorization:`bearer ${getState().authReducer.userToken || ""}`,
         }
       }
       const payload={token,orderData}
       const {data}=await axios.post("/api/order",payload,config)
       if(data?.redirectToLogin){
         dispatch({type:authTypes.LOGOUT_SUCCESS})
-        sessionStorage.removeItem("pizzahut-auth-data")
+        sessionStorage.removeItem("pizzahut-user-token")
+        sessionStorage.removeItem("pizzahut-auth-email")
+        sessionStorage.removeItem("pizzahut-auth-userId")
+        sessionStorage.removeItem("pizzahut-auth-isAdmin")
         Router.push("/auth/login")
       }
       console.log("order data payment",data)

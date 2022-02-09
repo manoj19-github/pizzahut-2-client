@@ -18,14 +18,14 @@ const TopNav = () => {
   const [note,setNote]=useState(false)
   const [toggleNotes,setToggleNotes]=useState(false)
   const router=useRouter()
-  const authUser=useSelector(state=>state.authReducer.authUser)
+  const isAdmin=useSelector(state=>state.authReducer.isAdmin)
   const isOrderPage=useSelector(state=>state.siteReducer.tabIndex)
 
   useEffect(()=>{
-    if(!authUser?.isAdmin){
+    if(!isAdmin){
       router.push("/auth/admin/login")
     }
-  },[dispatch,authUser])
+  },[dispatch,isAdmin])
 
   const getNotification=()=>{
     setNote(!note)

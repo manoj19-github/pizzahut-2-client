@@ -173,13 +173,11 @@ AdminPage.getLayout=function PageLayout(page){
 
 export async function getServerSideProps({req}){
   try{
-    const Cookie=req.headers.cookie|| ""
     const config={
-      credentials:"include",
       headers:{
         Accept:"application/json",
         "Content-Type":"application/json",
-        Cookie
+
       }
     }
     const rawData=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/dashboard/label`,config)

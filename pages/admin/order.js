@@ -62,7 +62,7 @@ const Order = ({orders}) => {
                   <th className="flex-1">Order Status</th>
                 </tr>
                 {
-                  orderData && orderData.map((order,index)=>(
+                  orderData && orderData?.map((order,index)=>(
                     <tr className="flex text-[15px] justify-between   w-[100%] border border-gray-600 items-center text-blue-700" key={index}>
                       <td  className="flex-1 text-center text-gray-500 ">
                         <span className="mr-2 text-[12px]">{order._id}</span><br/>

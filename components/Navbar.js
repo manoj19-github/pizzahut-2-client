@@ -11,7 +11,7 @@ const Navbar = () => {
   const Router=useRouter()
   const dispatch=useDispatch()
   const isSidebarOpen= useSelector(state=>state.siteReducer.isSidebarOpen)
-  const authUser=useSelector(state=>state.authReducer.authUser)
+  const userId=useSelector(state=>state.authReducer.userId)
   const handleLogout=()=>{
       dispatch(logoutAction())
   }
@@ -64,7 +64,7 @@ const Navbar = () => {
             <li className="menubar"><Link href={"/orders"} passHref>My Orders</Link></li>
               <li className="menubar">Contact</li>
               {
-                authUser ?(
+                userId ?(
                   <li className="menubar" onClick={handleLogout}>Log out</li>
                 ):(
                   <li className="menubar" onClick={handleLogin}>Log in</li>

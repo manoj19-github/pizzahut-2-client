@@ -9,8 +9,10 @@ import {useDispatch,useSelector} from "react-redux"
 import {toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Link from "next/link"
+
 toast.configure()
 const Auth = () => {
+
   const dispatch=useDispatch()
   const getLocalData=()=>{
     if(typeof window !=="undefined"){
@@ -38,42 +40,35 @@ const Auth = () => {
       isRemember:false
     })
   }
-  const authUser=useSelector(state=>state.authReducer.authUser)
+  const authUserId=useSelector(state=>state.authReducer.userId)
+  const authUserToken=useSelector(state=>state.authReducer.userToken)
+  const isAdminData=useSelector(state=>state.authReducer.isAdmin)
   const router=useRouter()
   const {params}=router.query
   const [isSignedUp,setIsSignedUp]=useState(true)
-  const [isAdmin,setIsAdmin]=useState(false)
   const [guestUser,setGuestUser]=useState({email:getLocalData()?.email,password:getLocalData()?.password})
-  const [userEmail,setUserEmail]=useState(null)
-  const [userPassword,setUserPassword]=useState(null)
+
 
   const submitHandler=(values,onSubmitProps)=>{
     console.log(values)
     if(values.isRemember){
       localStorage.setItem("pizzahut-user-credential",JSON.stringify(values))
     }
-    if(params.length==1){
-      dispatch(loginAction(values.email,values.password))
-      console.log(authUser)
-      if(authUser){
+    dispatch(loginAction(values.email,values.password,router))
+    if(authUserId && authUserToken && isAdminData ){
+        router.push("/admin")
+    }
+    else if(authUserId && authUserToken && (!isAdminData) ){
         router.push("/")
-      }else{
-        toast.error("email or password is not valid",{position:toast.POSITION.TOP_RIGHT})
-      }
+    }else{
+      toast.error("email or password is not valid",{position:toast.POSITION.TOP_RIGHT})
     }
-    else if(params.length==2){
-      dispatch(adminLoginAction(values.email,values.password,router))
-      console.log(authUser)
-        if(!authUser.isAdmin){
-          toast.error("email or password is not valid",{position:toast.POSITION.TOP_RIGHT})
-        }
-      }
-      onSubmitProps.resetForm()
-    }
+    onSubmitProps.resetForm()
+  }
 
 
 
-  const signUpthrowGoogle=()=>{
+  const signUpThroughGoogle=()=>{
     window.open(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/auth/login/google`,"_self")
   }
   const initFormData=()=>{
@@ -120,7 +115,7 @@ const Auth = () => {
             <div className="flex-1 mx-2 flex justify-center flex-col mt-5 lg:mt-0">
               {
                   params?.length==1 &&(
-                  <button className="btnGoogle w-full md:w-auto " onClick={signUpthrowGoogle}>Continue with Google <FcGoogle size={28}/></button>
+                  <button className="btnGoogle w-full md:w-auto " onClick={signUpThroughGoogle}>Continue with Google <FcGoogle size={28}/></button>
                 )
               }
 

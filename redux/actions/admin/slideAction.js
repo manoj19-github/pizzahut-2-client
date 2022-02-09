@@ -1,13 +1,14 @@
 import {slideTypes} from "../../types"
 import axios from "axios"
 import Swal from 'sweetalert2'
-export const delSlide=(slideId)=>async dispatch=>{
+export const delSlide=(slideId)=>async (dispatch,getState)=>{
   try{
 
     const config={
       headers:{
         "Content-Type":"application/json",
-        "Access-Control-Allow-Credentials": true,
+        Authorization:`bearer ${getState().authReducer.userToken || ""}`,
+
       }
     }
     const payload={slideId}
@@ -27,7 +28,7 @@ export const delSlide=(slideId)=>async dispatch=>{
     console.log("error in delSlide",err)
   }
 }
-export const addSlide=(fileData)=>async dispatch=>{
+export const addSlide=(fileData)=>async (dispatch,getState)=>{
   try{
     if(fileData==null) return
     const formData=new FormData()
@@ -37,7 +38,8 @@ export const addSlide=(fileData)=>async dispatch=>{
       data:formData,
       url:"/api/admin/dashboard/addSlide",
       headers:{
-        "Content-Type":"multipart/form-data"
+        "Content-Type":"multipart/form-data",
+        Authorization:`bearer ${getState().authReducer.userToken || ""}`,
       },
     })
     console.log("data status",data)

@@ -3,6 +3,7 @@ import Image from "next/image"
 import {useRouter} from "next/router"
 import {logoutAction} from "../redux/actions/auth"
 import {useDispatch,useSelector} from "react-redux"
+import Link from "next/link"
 const Sidebar = () => {
   const dispatch=useDispatch()
 
@@ -24,7 +25,7 @@ const Sidebar = () => {
              </div>
           <div className="mt-2 p-2  ">
             <ul className="list-style-none flex flex-col items-center justify-evenly h-[80vh] ">
-              <li className="flex-1 text-gray-800 hover:text-[#d1411e] cursor-pointer">Home</li>
+              <Link href={`/`} passHref><li className="flex-1 text-gray-800 hover:text-[#d1411e] cursor-pointer">Home</li></Link>
           {/*    <li className="flex-1 text-gray-800 hover:text-[#d1411e] cursor-pointer">Product</li>*/}
               <li className="flex-1 text-gray-800 hover:text-[#d1411e] cursor-pointer">Menu</li>
               <li className="flex-1 text-gray-800 hover:text-[#d1411e] cursor-pointer">Events</li>

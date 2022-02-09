@@ -1,13 +1,13 @@
 import axios from "axios"
 import {cartTypes,authTypes} from "../../types"
-export const editCartQty=(productId,newQty)=>async dispatch=>{
+export const editCartQty=(productId,newQty)=>async (dispatch,getState)=>{
   try{
 
     dispatch({type:cartTypes.GET_CART_REQ})
     const config={
       headers:{
         "Content-Type":"application/json",
-        "Access-Control-Allow-Credentials": true,
+        Authorization:`bearer ${getState().authReducer.userToken || ""}`,
       }
     }
 
@@ -23,7 +23,10 @@ export const editCartQty=(productId,newQty)=>async dispatch=>{
 
     if(data?.redirectToLogin){
       dispatch({type:authTypes.LOGOUT_SUCCESS})
-      sessionStorage.removeItem("pizzahut-auth-data")
+      sessionStorage.removeItem("pizzahut-user-token")
+      sessionStorage.removeItem("pizzahut-auth-email")
+      sessionStorage.removeItem("pizzahut-auth-userId")
+      sessionStorage.removeItem("pizzahut-auth-isAdmin")
       Router.push("/auth/login")
     }else if(data.cartProduct?.cartItems){
         const cartLength=data.cartProduct.cartItems.length

@@ -1,11 +1,11 @@
 import axios from "axios"
 import {authTypes,cartTypes} from "../../types"
-export const makePaymentWithCod=(orderData,Router)=>async dispatch=>{
+export const makePaymentWithCod=(orderData,Router)=>async (dispatch,getState)=>{
   try{
       const config={
         headers:{
           "Content-Type":"application/json",
-          "Access-Control-Allow-Credentials": true,
+          Authorization:`bearer ${getState().authReducer.userToken || ""}`,
         }
       }
       const payload={orderData}
@@ -13,7 +13,10 @@ export const makePaymentWithCod=(orderData,Router)=>async dispatch=>{
         if(data?.redirectToLogin){
 
           dispatch({type:authTypes.LOGOUT_SUCCESS})
-          sessionStorage.removeItem("pizzahut-auth-data")
+          sessionStorage.removeItem("pizzahut-user-token")
+          sessionStorage.removeItem("pizzahut-auth-email")
+          sessionStorage.removeItem("pizzahut-auth-userId")
+          sessionStorage.removeItem("pizzahut-auth-isAdmin")
           Router.push("/auth/login")
         }
         if(data.status){

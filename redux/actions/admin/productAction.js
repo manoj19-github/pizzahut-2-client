@@ -1,12 +1,12 @@
 import {adminProductTypes,adminOrderTypes} from "../../types"
 import axios from "axios"
 import Swal from 'sweetalert2'
-export const deleteProductData=(productId)=>async dispatch=>{
+export const deleteProductData=(productId)=>async (dispatch,getState)=>{
   try{
     dispatch({type:adminProductTypes.DELETE_PRODUCT_REQ})
     const config={
       headers:{
-        "Access-Control-Allow-Credentials": true,
+          Authorization:`bearer ${getState().authReducer.userToken || ""}`,
           "Content-Type":"application/json",
       }
     }
@@ -37,7 +37,7 @@ export const orderStatusChange=(orderId,newStatus)=>async dispatch=>{
     const payload={orderId,newStatus}
     const config={
       headers:{
-          "Access-Control-Allow-Credentials": true,
+          Authorization:`bearer ${getState().authReducer.userToken || ""}`,
           "Content-Type":"application/json",
       }
     }

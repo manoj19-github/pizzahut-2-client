@@ -66,10 +66,10 @@ const Product = ({product}) => {
 
   const productData=useSelector(state=>state.clientSingleProductReducer)
   const productSize=useSelector(state=>state.clientSingleProductReducer.productSize)
-  const authUser=useSelector(state=>state.authReducer.authUser)
+  const userToken=useSelector(state=>state.authReducer.userToken)
 
   const addToCart=async()=>{
-    if(!authUser){
+    if(!userToken){
       Router.push("/auth/login")
       return
     }

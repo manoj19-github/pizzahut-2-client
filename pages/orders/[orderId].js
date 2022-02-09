@@ -4,16 +4,19 @@ import io from "socket.io-client"
 import {useDispatch,useSelector} from "react-redux"
 import {orderStatusTypes} from "../../redux/types"
 import moment from "moment-timezone"
+import {useRouter} from "next/router"
+import {getOrder} from "../../redux/actions/orders"
 const SERVER_URL=`${process.env.NEXT_PUBLIC_SERVER_URL}`
 var socket
-const OrderId = ({orderData}) => {
+const OrderId = () => {
   const timeRef=useRef()
   const dispatch=useDispatch()
+  const router=useRouter()
+  const {orderId}=router.query
 
-  console.log("order Data",orderData)
   useEffect(()=>{
-    dispatch({type:orderStatusTypes.ORDER_DATA_GET,payload:orderData})
-  },[])
+    dispatch(getOrder(orderId))
+  },[dispatch,orderId])
   const localOrderData=useSelector(state=>state.orderStatusReducer.orderData)
 
   const getStatus=()=>{
@@ -26,7 +29,7 @@ const OrderId = ({orderData}) => {
 
   useEffect(()=>{
     socket=io(SERVER_URL)
-    socket.emit("join",`order_${orderData._id}`)
+    socket.emit("join",`order_${localOrderData?._id}`)
   },[])
 
   useEffect(()=>{
@@ -195,38 +198,3 @@ const OrderId = ({orderData}) => {
 }
 
 export default OrderId
-
-export async function getServerSideProps(context){
-  const {req,params}=context
-
-  try{
-    const mycookie= req.headers.cookie|| ""
-    const aorders=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/order/${params.orderId}`,{
-              credentials:"include",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Cookie:mycookie
-              }})
-    const orders=await aorders.json()
-
-    if(!orders.status){
-      return {
-        props:{
-          orderData:null
-        }
-      }
-    }
-    return {
-        props:{
-          orderData:orders.products
-
-        }
-      }
-
-
-  }catch(err){
-    console.log(`cart error `,err)
-
-  }
-}

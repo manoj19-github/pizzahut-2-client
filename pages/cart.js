@@ -11,31 +11,26 @@
   import CartRow from "../components/Cart/CartRow"
   import CartTable from "../components/Cart/CartTable"
   import {editCartQty} from "../redux/actions/cart/editCartQty"
+  import {getCartData} from "../redux/actions/cart/cartAction"
   const Cart = ({cartProduct}) => {
-    console.log("cartProduct",cartProduct)
-    const Router=useRouter()
     const dispatch=useDispatch()
-    const authUser= useSelector(state=>state.authReducer.authUser)
+    useEffect(()=>{
+      dispatch(getCartData())
+    },[dispatch])
+
+    const Router=useRouter()
+
+    const userId= useSelector(state=>state.authReducer.userId)
+
     const goToProduct=()=>{
       Router.push("/")
     }
     useEffect(()=>{
-      if(!authUser){
+      if(!userId){
         Router.push("/auth/login")
       }
-    },[authUser])
-    useEffect(()=>{
-      if(cartProduct){
-        dispatch({type:cartTypes.GET_CART_DATA,payload:cartProduct?.cartItems})
-        dispatch({type:cartTypes.EDIT_CART_LENGTH,payload:cartProduct?.cartItems.length})
-        localStorage.setItem("pizzahut-cart-length",JSON.stringify({cartProductLength:cartProduct?.cartItems.length}))
-      }else{
-        dispatch({type:cartTypes.GET_CART_DATA,payload:""})
-        dispatch({type:cartTypes.EDIT_CART_LENGTH,payload:0})
-        localStorage.setItem("pizzahut-cart-length",JSON.stringify({cartProductLength:0}))
+    },[userId])
 
-      }
-    },[])
     const cartProductData= useSelector(state=>state.cartReducer.cartItems)
     const cartProductAmount= useSelector(state=>state.cartReducer.cartAmountTotal)
     const cartTotal=useMemo(()=>{
@@ -51,10 +46,7 @@
       localStorage.setItem("pizzahut-cart-amount",JSON.stringify({cartAmount:cartTotal}))
       localStorage.setItem("pizzahut-cart-product",JSON.stringify(cartProductData))
     }
-    const handleCartQtyChange=(e,productId)=>{
-      if(e.target.value<1) return
-      dispatch(editCartQty(productId,e.target.value))
-    }
+
     const checkOutHandler=()=>{
         Router.push("/delivery")
     }
@@ -111,37 +103,3 @@
   }
 
   export default Cart
-
-export async function getServerSideProps({req}){
-
-  try{
-    const mycookie= req.headers.cookie|| ""
-    const aproducts=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/cart`,{
-              credentials:"include",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Cookie:mycookie
-              }})
-    const products=await aproducts.json()
-    console.log("products",products)
-    if(!products.status){
-      return {
-        props:{
-          cartProduct:null
-        }
-      }
-    }else{
-      return {
-        props:{
-          cartProduct:products.cartProduct,
-
-        }
-      }
-    }
-
-  }catch(err){
-    console.log(`cart error `,err)
-
-  }
-}

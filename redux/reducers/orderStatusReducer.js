@@ -2,6 +2,7 @@ import {orderStatusTypes} from "../types"
 const initState={
   loading:false,
   orderData:null,
+  allOrdersData:null,
   error:""
 }
 export const orderStatusReducer=(state=initState,action)=>{
@@ -12,6 +13,11 @@ export const orderStatusReducer=(state=initState,action)=>{
         return{
           ...state,
           orderData:payload
+        }
+      case orderStatusTypes.ALL_ORDER_DATA:
+        return{
+          ...state,
+          allOrdersData:payload
         }
       default:return state
     }

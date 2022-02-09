@@ -1,11 +1,11 @@
 import {cartTypes,authTypes} from "../../types"
 import axios from "axios"
-export const deleteCart=(cartId,Router)=>async dispatch =>{
+export const deleteCart=(cartId,Router)=>async (dispatch,getState) =>{
   try{
     const config={
       headers:{
         "Content-Type":"application/json",
-        "Access-Control-Allow-Credentials": true,
+        Authorization:`bearer ${getState().authReducer.userToken || ""}`,
       }
     }
     const {data}=await axios.post("/api/cart/del",{cartId},config)
@@ -13,7 +13,10 @@ export const deleteCart=(cartId,Router)=>async dispatch =>{
     dispatch({type:cartTypes.GET_CART_DATA,payload:data.cartProduct.cartItems})
     if(data?.redirectToLogin){
       dispatch({type:authTypes.LOGOUT_SUCCESS})
-      sessionStorage.removeItem("pizzahut-auth-data")
+      sessionStorage.removeItem("pizzahut-user-token")
+      sessionStorage.removeItem("pizzahut-auth-email")
+      sessionStorage.removeItem("pizzahut-auth-userId")
+      sessionStorage.removeItem("pizzahut-auth-isAdmin")
       Router.push("/auth/login")
     }
     if(data.cartProduct?.cartItems){
