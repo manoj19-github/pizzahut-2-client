@@ -1,6 +1,5 @@
 
 import React,{useState,useEffect,useRef} from 'react'
-import { PayPalButton } from "react-paypal-button-v2";
 import {BiRupee} from "react-icons/bi"
 import {Formik,Form,Field,ErrorMessage} from "formik"
 import * as Yup from "yup"
@@ -10,7 +9,7 @@ import {toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import {orderTypes} from "../redux/types"
 import ReCAPTCHA from "react-google-recaptcha"
-import "react-credit-cards/es/styles-compiled.css"
+
 import StripeCheckout from "react-stripe-checkout"
 import {makePaymentWithCard} from "../redux/actions/payment/makePaymentWithCard"
 import{makePaymentWithCod} from "../redux/actions/payment/makePaymentWithCod"
