@@ -13,7 +13,6 @@ export const getAuthData=()=>async (dispatch,getState)=>{
               },
 
     })
-    console.log(data)
     if(data.status){
 
       dispatch({type:authTypes.GET_USER_CREDENTIAL,payload:
@@ -37,7 +36,6 @@ export const loginAction=(email,password,Router)=>async (dispatch,getState)=>{
         "Content-Type": "application/json",
       }
     })
-    console.log("auth data",data)
     if(data.status){
       dispatch({type:authTypes.GET_USER_TOKEN,payload:data.userToken})
       dispatch({type:authTypes.GET_USER_CREDENTIAL,payload:

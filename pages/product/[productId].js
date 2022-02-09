@@ -27,8 +27,6 @@ const Product = ({product}) => {
         }
       })
   },[])
-
-  console.log("product",product)
   const ingriData= product.ingridients.map(ing=>{
     return {
       key:ing.text,
@@ -54,9 +52,7 @@ const Product = ({product}) => {
       }
   }
   const sizeHandler=(val)=>{
-    console.log("size handler",val)
     dispatch({type:clientProductTypes.EDIT_SIZE_TO_PRODUCT,payload:val})
-    console.log("productSize",productData.productSize)
   }
   const editQty=(e)=>{
     if(+e.target.value<1) return
@@ -75,7 +71,6 @@ const Product = ({product}) => {
     }
 
     const status=await dispatch(cartAction(productData,Router))
-    console.log("status",status)
     switch(status){
       case 1:
         Router.push("/cart")
@@ -85,7 +80,6 @@ const Product = ({product}) => {
         return
       default:return
     }
-    console.log("this is cart btn")
   }
 
     return (

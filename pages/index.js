@@ -12,8 +12,7 @@ export default function Home({data,slides}) {
   const Router=useRouter()
   const {query}=useRouter()
   const dispatch=useDispatch()
-  const userToken=query.token
-  console.log("token2",Router.query)
+  const userToken=query?.token
   useEffect(()=>{
     if(userToken){
       dispatch({type:authTypes.GET_USER_TOKEN,payload:query.token})
@@ -26,12 +25,8 @@ export default function Home({data,slides}) {
   },[userToken])
 
   useEffect(()=>{
-    const status=dispatch(getAuthData())
-    if(!status){
-        router.push("/auth/login")
-    }
-
-  },[])
+    dispatch(getAuthData())
+  },[userToken])
 
   useEffect(()=>{
     dispatch({type:clientProductTypes.GET_PRODUCTS_SUCCESS,payload:data?.products})
@@ -64,7 +59,7 @@ export async function getStaticProps(){
         data:products,
         slides:slidesData.slides
       },
-      revalidate:100
+      revalidate:1000
     }
 
   }catch(err){
