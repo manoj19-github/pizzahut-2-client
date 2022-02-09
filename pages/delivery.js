@@ -95,7 +95,6 @@ const Delivery = () => {
   const option= useSelector(state=>state.orderReducer.option)
 
   const orderData={cartItems,cartProductAmount,deliveryAddress,paymentOption,option}
-  console.log("orderData",orderData)
   const orderRequestWithCash=()=>{
     if(!captcheEnabled){
       alert("please click the cpatcha")
