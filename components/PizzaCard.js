@@ -10,7 +10,7 @@ const PizzaCard = ({product}) => {
   }
     return (
         <div
-          className="pizzaCart "
+          className="pizzaCart my-4 "
           style={{boxShadow:"0px 0px 3px 1px rgba(0,0,0,0.5),0px 0px 3px 1px rgba(0,0,0,0.5)"}}
           onClick={clickHandler}
         >

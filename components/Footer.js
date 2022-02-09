@@ -7,7 +7,7 @@ const Footer = () => {
     Router.push("/auth/admin/login")
   }
     return (
-        <div className="h-auto bg-[#222] flex">
+        <div className="h-auto bg-[#222] flex mt-12">
 
           <div className="hidden flex-1 p-0 m-0 relative h-[111 vh] lg:flex ">
             <Image
