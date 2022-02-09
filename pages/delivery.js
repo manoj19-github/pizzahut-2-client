@@ -79,10 +79,10 @@ const Delivery = () => {
   },[])
   const cartItems=useSelector(state=>state.cartReducer.cartItems)
   const cartProductAmount=useSelector(state=>state.cartReducer.cartAmountTotal)
-  const authUser= useSelector(state=>state.authReducer.authUser)
+  const {userId,userToken}= useSelector(state=>state.authReducer)
 
   useEffect(()=>{
-    if(!authUser){
+    if(!userId || !userToken){
       Router.push("/auth/login")
     }
   },[authUser])
