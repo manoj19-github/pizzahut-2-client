@@ -32,7 +32,7 @@ export const deleteProductData=(productId)=>async (dispatch,getState)=>{
   }
 }
 
-export const orderStatusChange=(orderId,newStatus)=>async dispatch=>{
+export const orderStatusChange=(orderId,newStatus)=>async (dispatch,getState)=>{
   try{
     const payload={orderId,newStatus}
     const config={
@@ -44,6 +44,7 @@ export const orderStatusChange=(orderId,newStatus)=>async dispatch=>{
     const {data}=await axios.post("/api/admin/order/statusChange",payload,config)
     dispatch({type:adminOrderTypes.EDIT_ORDER_STATUS,payload:data.updatedOrder})
   }catch(err){
+    console.log(err)
     console.log("order status change")
   }
 }

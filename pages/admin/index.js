@@ -34,8 +34,8 @@ const AdminPage = ({dashboardData,lastData}) => {
     return moment(data._id).format("do MMM")
   })
   const dataOfBar=lastData?.lastFivePaid?.map(data=>data.totalOrder)
-  const pieLabel=lastData?.topSalesProduct?.map(data=>data._id.name)
-  const pieData=lastData?.topSalesProduct?.map(data=>data.count)
+  const pieLabel=lastData?.topSalesProduct?.map(data=>data._id?.name)
+  const pieData=lastData?.topSalesProduct?.map(data=>data?.count)
   const data={
     labels:lineLabel,
     datasets: [
@@ -142,11 +142,11 @@ const AdminPage = ({dashboardData,lastData}) => {
                       lastData?.topSalesProduct?.map((data,index)=>(
                         <tr key={index} className="flex  justify-between   w-[100%] border border-gray-600 items-center">
                           <td  className="flex-1 text-center">
-                            <Image src={data._id.image} width="60px" height="50px"/>
+                            {data._id?.image ? <Image src={data._id.image} width="60px" height="50px"/> : "product deleted"}
                           </td>
-                          <td  className="flex-1 text-center">{data._id.name}</td>
-                          <td  className="flex-1 text-center">{data._id.base_price}</td>
-                          <td  className=" flex-1 text-center">{data.count}</td>
+                          <td  className="flex-1 text-center">{data?._id?.name}</td>
+                        <td  className="flex-1 text-center">{data?._id?.base_price}</td>
+                      <td  className=" flex-1 text-center">{data?.count}</td>
                         </tr>
 
                       ))
