@@ -22,8 +22,9 @@ export const newProduct=(formVal,imageData)=>async(dispatch,getState)=>{
         Authorization:`bearer ${getState().authReducer.userToken || ""}`,
       },
     })
+    console.log("formDSata",data)
     formData.append("productId",data.products._id)
-    const {data:newData}=await axios({
+    const result=await axios({
       method:"post",
       data:formData,
       url:"/api/admin/product/image",
@@ -34,15 +35,12 @@ export const newProduct=(formVal,imageData)=>async(dispatch,getState)=>{
       },
     })
 
-    console.log(newData)
+    console.log("newData",result)
     Swal.fire({
-      icon: 'Congratulation',
-      title: 'new Product Added',
-      text: 'Something went wrong!'
+      icon: 'success',
+      title: 'Congratulation',
+      text: 'new Product added'
     })
-    return newData
-
-
   }catch(err){
     console.log(err)
     Swal.fire({

@@ -49,7 +49,7 @@ const AddProduct = () => {
   }
   const submitHandler=(values,onSubmitProps)=>{
     console.log("values",values)
-    console.log(newProduct(values,fileData))
+    dispatch(newProduct(values,fileData))
     onSubmitProps.resetForm()
     Router.push("/admin/product")
   }

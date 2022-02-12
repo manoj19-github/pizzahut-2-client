@@ -19,6 +19,17 @@ export const adminProductReducer=(state=initState,action)=>{
           loading:false,
           products:payload
         }
+      case adminProductTypes.ADD_NEW_PRODUCT:
+        if(state.products && state.products.length>1){
+          return {
+            ...state,
+            products:[payload,...state.products]
+          }
+        }
+      return {
+        ...state,
+        products:[payload]
+      }
       case adminProductTypes.ADD_PRODUCT_FAILED:
         return{
           ...state,
@@ -29,7 +40,7 @@ export const adminProductReducer=(state=initState,action)=>{
           ...state,
           loading:true
         }
-      case adminProductReducer.DELETE_PRODUCT_SUCCESS:
+      case adminProductReducer.DELETE_PRODUCT_SUCCESS:{
         let newProduct=state.products.filter((product,index)=>{
           return product._id !=payload
         })
@@ -38,6 +49,7 @@ export const adminProductReducer=(state=initState,action)=>{
           products:newProduct,
           loading:false
         }
+      }
       default:return state
     }
   }catch(err){

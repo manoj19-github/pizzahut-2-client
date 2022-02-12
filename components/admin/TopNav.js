@@ -7,7 +7,7 @@ import {BiRupee} from "react-icons/bi"
 import {useSelector,useDispatch} from "react-redux"
 import {logoutAction} from "../../redux/actions/auth"
 import {useRouter} from "next/router"
-import {adminOrderTypes,notifyTypes} from "../../redux/types"
+import {adminOrderTypes,notifyTypes,adminProductTypes} from "../../redux/types"
 import {toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 toast.configure()
@@ -39,6 +39,11 @@ const TopNav = () => {
   },[])
 
   useEffect(()=>{
+    socket.on("productAdded",(newProduct)=>{
+      if(isOrderPage==4){
+        dispatch({type:adminProductTypes.ADD_NEW_PRODUCT,payload:newProduct})
+      }
+    })
     socket.on("orderPlaced",(newOrder)=>{
       if(isOrderPage==1){
         dispatch({type:adminOrderTypes.ADD_NEW_ORDER,payload:newOrder})

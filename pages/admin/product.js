@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import AdSideBar from "../../components/admin/AdSideBar"
 import TopNav from "../../components/admin/TopNav"
 import {GiReceiveMoney,GiPayMoney,GiHamburgerMenu} from "react-icons/gi"
@@ -21,10 +21,14 @@ const Product = ({products}) => {
       dispatch({type:siteTypes.DISPLAY_AD_SIDEBAR})
     }
   }
-  dispatch({
-    type:adminProductTypes.ADD_PRODUCT_SUCCESS,
-    payload:products
-  })
+  useEffect(()=>{
+    dispatch({
+      type:adminProductTypes.ADD_PRODUCT_SUCCESS,
+      payload:products
+    })
+
+  },[dispatch])
+
   const productsData=useSelector(state=>state.adminProductReducer.products)
   const productsLoading=useSelector(state=>state.adminProductReducer.loading)
   const deleteProduct=(productId)=>{
