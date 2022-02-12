@@ -1,4 +1,5 @@
 import axios from "axios"
+import Swal from "sweetalert2"
 export const newProduct=(formVal,imageData)=>async(dispatch,getState)=>{
   try{
     const formData=new FormData()
@@ -34,10 +35,20 @@ export const newProduct=(formVal,imageData)=>async(dispatch,getState)=>{
     })
 
     console.log(newData)
+    Swal.fire({
+      icon: 'Congratulation',
+      title: 'new Product Added',
+      text: 'Something went wrong!'
+    })
     return newData
 
 
   }catch(err){
     console.log(err)
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+    })
   }
 }

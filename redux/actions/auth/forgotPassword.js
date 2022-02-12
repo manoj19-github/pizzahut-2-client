@@ -1,4 +1,4 @@
-import axios from "axios"
+  import axios from "axios"
 import {authTypes} from "../../types"
 import Swal from 'sweetalert2'
 export const sendConfirmation=(userEmail)=>async dispatch=>{
