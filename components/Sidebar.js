@@ -9,7 +9,7 @@ const Sidebar = () => {
 
   const Router=useRouter()
   const isSidebarOpen= useSelector(state=>state.siteReducer.isSidebarOpen)
-  const authUser=useSelector(state=>state.authReducer.authUser)
+  const authUser=useSelector(state=>state.authReducer.userToken)
   const handleLogout=()=>{
       dispatch(logoutAction())
   }
@@ -35,7 +35,7 @@ const Sidebar = () => {
                   <li
                     onClick={handleLogout}
                     className="flex-1 text-gray-800 hover:text-[#d1411e] cursor-pointer">
-                    Logout
+                    Log out
                   </li>
                 ):
                 (

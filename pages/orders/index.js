@@ -7,9 +7,9 @@ import Image from "next/image"
 import Link from "next/link"
 import moment from "moment-timezone"
 import {useRouter} from "next/router"
-import {getOrders} from "../../redux/actions/orders"
-
-const Order = () => {
+import {orderStatusTypes} from "../../redux/types"
+import * as cookie from "cookie"
+const Order = ({orderProducts}) => {
   const Router=useRouter()
   const ordersData=useSelector(state=>state.orderStatusReducer.allOrdersData)
   const {userToken,userId}=useSelector(state=>state.authReducer)
@@ -22,11 +22,8 @@ const Order = () => {
 
 
   useEffect(()=>{
-    dispatch(getOrders())
-  },[dispatch])
-  console.log("ordersData",ordersData)
-
-
+    dispatch({type:orderStatusTypes.ALL_ORDER_DATA,payload:orderProducts})
+  },[orderProducts,dispatch])
     return (
         <div className="flex md:p-4 flex-col p-2 mt-4 lg:flex-row ">
           <div className="w-full lg:mb-12">
@@ -97,10 +94,39 @@ const Order = () => {
             </div>
       </div>
     </div>
-
-
-
     )
 }
 
 export default Order
+export async function getServerSideProps(ctx){
+  try{
+
+    const config={
+      headers:{
+        "Content-Type":"application/json",
+        Accept: "application/json",
+        Authorization:`bearer ${cookie.parse(ctx.req.headers.cookie).jwtToken}`,
+      }
+    }
+    const aresp=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/order`,config)
+    const resp=await aresp.json()
+    if(resp.status){
+      return {
+        props:{
+          orderProducts:resp.products
+        }
+      }
+    }else{
+      return {
+        props:{
+          orderProducts:null
+        }
+      }
+    }
+
+  }catch(err){
+    console.log(err)
+
+  }
+
+}

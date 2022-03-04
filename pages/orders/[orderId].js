@@ -5,17 +5,16 @@ import {useDispatch,useSelector} from "react-redux"
 import {orderStatusTypes} from "../../redux/types"
 import moment from "moment-timezone"
 import {useRouter} from "next/router"
-import {getOrder} from "../../redux/actions/orders"
+import * as cookie from "cookie"
 const SERVER_URL=`${process.env.NEXT_PUBLIC_SERVER_URL}`
 var socket
-const OrderId = () => {
-  const timeRef=useRef()
+const OrderId = ({orderProducts}) => {
   const dispatch=useDispatch()
   const router=useRouter()
   const {orderId}=router.query
 
   useEffect(()=>{
-    dispatch(getOrder(orderId))
+    dispatch({type:orderStatusTypes.ORDER_DATA_GET,payload:orderProducts})
   },[dispatch,orderId])
   const localOrderData=useSelector(state=>state.orderStatusReducer.orderData)
 
@@ -198,3 +197,35 @@ const OrderId = () => {
 }
 
 export default OrderId
+
+export async function getServerSideProps(ctx){
+  try{
+    const orderId=ctx.params.orderId;
+    const config={
+      headers:{
+        "Content-Type":"application/json",
+        Accept: "application/json",
+        Authorization:`bearer ${cookie.parse(ctx.req.headers.cookie).jwtToken}`,
+      }
+    }
+    const aresp=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/order/${orderId}`,config)
+    const resp=await aresp.json()
+    if(resp.status){
+      return {
+        props:{
+          orderProducts:resp.products
+        }
+      }
+    }else{
+      return {
+        props:{
+          orderProducts:null
+        }
+      }
+    }
+  }catch(err){
+    console.log(err)
+
+  }
+
+}

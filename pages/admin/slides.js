@@ -9,6 +9,7 @@ import {IoIosCloseCircleOutline} from "react-icons/io"
 import {slideTypes} from "../../redux/types"
 import {addSlide,delSlide} from "../../redux/actions/admin/slideAction"
 import Swal from "sweetalert2"
+import * as cookie from "cookie"
 const Slides = ({slidesData}) => {
   const [selectedFile,setSelectedFile]=useState(null)
   const [fileData,setFileData]=useState(null)
@@ -145,15 +146,14 @@ Slides.getLayout=function pageLayout(page){
   )
 }
 
-export async function getServerSideProps({req}){
+export async function getServerSideProps(ctx){
   try{
-    const Cookie=req.headers.cookie|| ""
+
     const config={
-      credentials:"include",
       headers:{
-        Accept:"application/json",
         "Content-Type":"application/json",
-        Cookie
+        Accept: "application/json",
+        Authorization:`bearer ${cookie.parse(ctx.req.headers.cookie).jwtToken}`,
       }
     }
     const rawData=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/slides`,config)

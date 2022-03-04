@@ -7,7 +7,7 @@ import {useDispatch,useSelector} from "react-redux"
 import Image from "next/image"
 import {AiOutlineDelete} from "react-icons/ai"
 import {FaEdit} from "react-icons/fa"
-
+import * as cookie from "cookie"
 const Customer = ({customers}) => {
   console.log("customers",customers)
   const isAdminSidebarOpen=useSelector(state=>state.siteReducer.isAdminSidebarOpen)
@@ -84,15 +84,13 @@ Customer.getLayout=function pageLayout(page){
 
 }
 
-export async function getServerSideProps({req}){
+export async function getServerSideProps(ctx){
   try{
-    const Cookie=req.headers.cookie|| ""
     const config={
-      credentials:"include",
       headers:{
-        Accept:"application/json",
         "Content-Type":"application/json",
-        Cookie
+        Accept: "application/json",
+        Authorization:`bearer ${cookie.parse(ctx.req.headers.cookie).jwtToken}`,
       }
     }
     const rawData=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/dashboard/customers`,config)

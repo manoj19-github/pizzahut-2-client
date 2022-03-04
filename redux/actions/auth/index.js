@@ -37,6 +37,7 @@ export const loginAction=(email,password,Router)=>async (dispatch,getState)=>{
       }
     })
     if(data.status){
+      document.cookie=`jwtToken=${data.userToken};expires=${1000*60*60*24}`
       dispatch({type:authTypes.GET_USER_TOKEN,payload:data.userToken})
       dispatch({type:authTypes.GET_USER_CREDENTIAL,payload:
         {userEmail:data.userEmail,userId:data.userId,isAdmin:data.isAdmin}})

@@ -55,13 +55,12 @@ const Auth = () => {
       localStorage.setItem("pizzahut-user-credential",JSON.stringify(values))
     }
     dispatch(loginAction(values.email,values.password,router))
+
     if(authUserId && authUserToken && isAdminData ){
         router.push("/admin")
     }
     else if(authUserId && authUserToken && (!isAdminData) ){
         router.push("/")
-    }else{
-      toast.error("email or password is not valid",{position:toast.POSITION.TOP_RIGHT})
     }
     onSubmitProps.resetForm()
   }

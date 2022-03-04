@@ -9,7 +9,7 @@ const PizzaList = () => {
           <p className="text-lg text-gray-500 w-full mb-4 text-center">
           world best pizza is here for you and you can missed you
           </p>
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row auto-rows-[minmax(17rem,auto)] gap-2.5 h-full w-full  justify-between">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-flow-row auto-rows-[minmax(17rem,auto)] gap-2.5 h-full w-full  justify-between">
             {
               products?.map((product,index)=>(
                 <PizzaCard key={index} product={product}/>

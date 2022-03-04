@@ -13,8 +13,10 @@ export default function Home({data,slides}) {
   const {query}=useRouter()
   const dispatch=useDispatch()
   const userToken=query?.token
+
   useEffect(()=>{
     if(userToken){
+      document.cookie=`jwtToken=${userToken};expires=${1000*60*60*24}`
       dispatch({type:authTypes.GET_USER_TOKEN,payload:query.token})
       sessionStorage.
         setItem("pizzahut-user-token",

@@ -11,12 +11,20 @@
   import CartRow from "../components/Cart/CartRow"
   import CartTable from "../components/Cart/CartTable"
   import {editCartQty} from "../redux/actions/cart/editCartQty"
-  import {getCartData} from "../redux/actions/cart/cartAction"
+  import * as cookie from "cookie"
   const Cart = ({cartProduct}) => {
     const dispatch=useDispatch()
     useEffect(()=>{
-      dispatch(getCartData())
-    },[dispatch])
+      if(cartProduct?.length){
+        dispatch({type:cartTypes.GET_CART_DATA,payload:cartProduct})
+        dispatch({type:cartTypes.EDIT_CART_LENGTH,payload:cartProduct.length})
+        localStorage.setItem("pizzahut-cart-length",JSON.stringify({cartProductLength:cartProduct.length}))
+      }else{
+        dispatch({type:cartTypes.GET_CART_DATA,payload:""})
+        dispatch({type:cartTypes.EDIT_CART_LENGTH,payload:0})
+        localStorage.setItem("pizzahut-cart-length",JSON.stringify({cartProductLength:0}))
+      }
+    },[dispatch,cartProduct])
 
     const Router=useRouter()
 
@@ -103,3 +111,35 @@
   }
 
   export default Cart
+
+export async function getServerSideProps(ctx){
+  try{
+    const config={
+              headers: {
+                Authorization:`bearer ${cookie.parse(ctx.req.headers.cookie).jwtToken}`,
+                "Content-Type": "application/json"
+              }
+          }
+
+    const resp=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/cart`,config)
+    const aresp=await resp.json()
+    var cartProduct=[]
+    cartProduct=aresp?.cartProduct?.cartItems
+    if(cartProduct){
+      return {
+        props:{
+          cartProduct
+        }
+      }
+    }else{
+      return {
+        props:{
+          cartProduct:[]
+        }
+      }
+    }
+  }catch(err){
+    console.log(err)
+
+  }
+}

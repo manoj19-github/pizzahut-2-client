@@ -12,6 +12,7 @@ import io from "socket.io-client"
 import {toast} from "react-toastify"
 import{orderStatusChange} from "../../redux/actions/admin/productAction"
 import "react-toastify/dist/ReactToastify.css"
+import * as cookie from "cookie"
 toast.configure()
 
 const SERVER_URL=`${process.env.NEXT_PUBLIC_SERVER_URL}`
@@ -142,15 +143,14 @@ Order.getLayout=function pageLayout(page){
 
 }
 
-export async function getServerSideProps({req}){
+export async function getServerSideProps(ctx){
   try{
-    const Cookie=req.headers.cookie|| ""
+
     const config={
-      credentials:"include",
       headers:{
-        Accept:"application/json",
         "Content-Type":"application/json",
-        Cookie
+        Accept: "application/json",
+        Authorization:`bearer ${cookie.parse(ctx.req.headers.cookie).jwtToken}`,
       }
     }
     const rawData=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/dashboard/orders`,config)

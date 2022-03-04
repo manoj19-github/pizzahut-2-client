@@ -10,6 +10,7 @@ import {FaEdit} from "react-icons/fa"
 import Link from "next/link"
 import {deleteProductData} from "../../redux/actions/admin/productAction"
 import Swal from "sweetalert2"
+import * as cookie from "cookie"
 const Product = ({products}) => {
 
   const isAdminSidebarOpen=useSelector(state=>state.siteReducer.isAdminSidebarOpen)
@@ -113,15 +114,13 @@ Product.getLayout=function pageLayout(page){
   )
 }
 
-export async function getServerSideProps({req}){
+export async function getServerSideProps(ctx){
   try{
-    const Cookie=req.headers.cookie|| ""
     const config={
-      credentials:"include",
       headers:{
-        Accept:"application/json",
         "Content-Type":"application/json",
-        Cookie
+        Accept: "application/json",
+        Authorization:`bearer ${cookie.parse(ctx.req.headers.cookie).jwtToken}`,
       }
     }
     const rawData=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/dashboard/products`,config)

@@ -14,6 +14,7 @@ import FirstRecord from "../../components/admin/FirstRecord"
 import SecondRecord from "../../components/admin/SecondRecord"
 import PieRecord from "../../components/admin/PieRecord"
 import moment from "moment"
+import * as cookie from "cookie"
 
 const AdminPage = ({dashboardData,lastData}) => {
   const dispatch=useDispatch()
@@ -26,11 +27,11 @@ const AdminPage = ({dashboardData,lastData}) => {
     }
   }
   console.log("lastDAta",lastData)
-  let lineLabel=lastData.lastFiveOrder?.map(data=>{
+  let lineLabel=lastData?.lastFiveOrder?.map(data=>{
     return moment(data._id).format("do MMM")
   })
-  let lineData=lastData.lastFiveOrder?.map(data=>data.totalOrder)
-  let labelBar=lastData.lastFivePaid?.map(data=>{
+  let lineData=lastData?.lastFiveOrder?.map(data=>data.totalOrder)
+  let labelBar=lastData?.lastFivePaid?.map(data=>{
     return moment(data._id).format("do MMM")
   })
   const dataOfBar=lastData?.lastFivePaid?.map(data=>data.totalOrder)
@@ -171,15 +172,16 @@ AdminPage.getLayout=function PageLayout(page){
   )
 }
 
-export async function getServerSideProps({req}){
+export async function getServerSideProps(ctx){
   try{
     const config={
       headers:{
-        Accept:"application/json",
         "Content-Type":"application/json",
-
+        Accept: "application/json",
+        Authorization:`bearer ${cookie.parse(ctx.req.headers.cookie).jwtToken}`,
       }
     }
+  //  console.log("cookie",cookie.parse(ctx.req.headers.cookie).jwtToken)
     const rawData=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/dashboard/label`,config)
     const dashboardData=await rawData.json()
     const rawData2=await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/admin/dashboard/lastFive`,config)
