@@ -3,12 +3,14 @@ import Image from "next/image"
 import {BiRupee} from "react-icons/bi"
 import {IoMdAdd} from "react-icons/io"
 import {useRouter} from "next/router"
+import Link from "next/link"
 const PizzaCard = ({product}) => {
   const Router=useRouter()
   const clickHandler=()=>{
     Router.push(`/product/${product._id}`)
   }
     return (
+        <Link href={`/product/${product._id}`} passHref>
         <div
           className="pizzaCart my-4 "
           style={{boxShadow:"0px 0px 3px 1px rgba(0,0,0,0.5),0px 0px 3px 1px rgba(0,0,0,0.5)"}}
@@ -27,6 +29,7 @@ const PizzaCard = ({product}) => {
           </p>
 
         </div>
+        </Link>
     )
 }
 
