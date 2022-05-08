@@ -10,6 +10,7 @@ import {toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Link from "next/link"
 
+
 toast.configure()
 const Auth = () => {
 
@@ -42,12 +43,13 @@ const Auth = () => {
   }
   const authUserId=useSelector(state=>state.authReducer.userId)
   const authUserToken=useSelector(state=>state.authReducer.userToken)
+  const loadingAuth=useSelector(state=>state.authReducer.loading)
   const isAdminData=useSelector(state=>state.authReducer.isAdmin)
   const router=useRouter()
   const {params}=router.query
   const [isSignedUp,setIsSignedUp]=useState(true)
   const [guestUser,setGuestUser]=useState({email:getLocalData()?.email,password:getLocalData()?.password})
-
+  console.log("loadingAuth",loadingAuth)
 
   const submitHandler=(values,onSubmitProps)=>{
     console.log(values)
@@ -214,6 +216,7 @@ const Auth = () => {
                   <div className="flex justify-end items-center my-3">
 
                     <Field type="submit"  id="submit" name="submit" value="submit" className="mr-4 text-gray-600 border border-gray-600 px-8 py-2 rounded-md cursor-pointer hover:bg-[#d1411e] hover:text-white transition-all duration-100 ease"/>
+
                   </div>
                   <div className="flex justify-between  items-center my-3">
                     {

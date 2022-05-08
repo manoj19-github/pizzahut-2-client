@@ -89,7 +89,7 @@ const AddProduct = () => {
             {
               formik=>{
               return(
-                <Form className="mx-1 w-[95%]">
+                <Form className="mx-1 w-2/4">
                   <div className="formParentsGroup w-full">
                     <div className="childGroup w-full">
                       <label> Product Name</label>
