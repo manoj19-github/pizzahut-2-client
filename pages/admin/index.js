@@ -103,7 +103,7 @@ const AdminPage = ({dashboardData,lastData}) => {
           </div>
           <div className="grid grid-cols-1 grid-flow-row auto-rows-max gap-y-4">
             <FirstRecord data={data} dashboardData={dashboardData}/>
-            <SecondRecord data={barData} customers={lastData.topFiveCustomer}/>
+          <SecondRecord data={barData} customers={lastData?.topFiveCustomer}/>
             <PieRecord pieLabel={pieLabel} pieData={pieData}/>
           <div className="flex flex-col lg:flex-row  mt-8">
               <div className="w-[90%] lg:w-[50%] flex justify-center mt-4 lg:mt-0 lg:p-4 h-full flex-col">
@@ -119,11 +119,11 @@ const AdminPage = ({dashboardData,lastData}) => {
                     {
                       lastData?.latestOrder?.map((data,index)=>(
                         <tr className="flex  justify-between   w-[100%] border border-gray-600 items-center text-[14px]" key={index}>
-                          <td  className="flex-1 text-center">{data.customerId.name}</td>
-                          <td  className="flex-1 text-center">{data.customerId.email}</td>
-                          <td  className="flex-1 text-center">{data.orderPrice}</td>
-                          <td  className={`flex-1 text-center ${data.paymentStatus?"text-green-700":"text-red-700"}`}>{data.paymentStatus?"paid":"not paid"}</td>
-                          <td  className={`flex-1 text-center`}>{data.status}</td>
+                          <td  className="flex-1 text-center">{data?.customerId?.name}</td>
+                        <td  className="flex-1 text-center">{data?.customerId?.email}</td>
+                      <td  className="flex-1 text-center">{data?.orderPrice}</td>
+                    <td  className={`flex-1 text-center ${data?.paymentStatus?"text-green-700":"text-red-700"}`}>{data.paymentStatus?"paid":"not paid"}</td>
+                        <td  className={`flex-1 text-center`}>{data?.status}</td>
                         </tr>
 
                       ))
